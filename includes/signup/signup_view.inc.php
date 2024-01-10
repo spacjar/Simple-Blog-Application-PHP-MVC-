@@ -103,8 +103,11 @@
         if(isset($_SESSION["errors_signup"])) {
             unset($_SESSION["errors_signup"]);
         }
-    }
 
+        if(isset($_SESSION["signup_data"])) {
+            unset($_SESSION["signup_data"]);
+        }
+    }
     // function check_signup_errors() {
     //     if(isset($_SESSION["errors_signup"])) {
     //         $errors = $_SESSION["errors_signup"];
