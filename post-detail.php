@@ -16,17 +16,9 @@
     <link rel="stylesheet" href="styles/components/_buttons.css">
 </head>
 <body>
-    <header class="header">
-        <div class="container">
-            <nav>
-                <a href="index.html" class="header__logo">spacjar.dev blog</a>
-                <div class="header__buttons">
-                    <a href="signup.html" class="cta cta__primary">Sign up</a>
-                    <a href="login.html" class="cta cta__secondary">Login</a>
-                </div>
-            </nav>
-        </div>
-    </header>
+    <?php 
+        include "components/_header.html";
+    ?>
     <main class="blog-detail">
         <div class="blog-detail-header">
             <div class="container">
@@ -69,10 +61,8 @@
             </div>
         </div>
     </main>
-    <footer>
-        <div class="container">
-            <p>&copy; Jaroslav Špác</p>
-        </div>
-    </footer>
+    <?php 
+        include "components/_footer.html";
+    ?>
 </body>
 </html>
