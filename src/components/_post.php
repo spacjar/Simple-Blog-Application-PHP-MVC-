@@ -1,5 +1,5 @@
 <?php
-    function generateBlogPostCard($category, $title, $description, $author, $date, $readTime, $postImage = './assets/placeholder.png', $avatarImage = './assets/placeholder.png') {
+    function generateBlogPostCard($category, $title, $description, $author, $date, $readTime, $postImage = './public/assets/placeholder.png', $avatarImage = './public/assets/placeholder.png') {
         return '
             <a class="blog-post-card" href="post-detail.php">
                 <!-- Post thumbnail image -->

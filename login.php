@@ -1,6 +1,6 @@
 <?php
-    require_once "includes/config_session.inc.php";
-    require_once "includes/login/login_view.inc.php";
+    require_once "./src/includes/config_session.inc.php";
+    require_once "./src/includes/login/login_view.inc.php";
 ?>
 
 <!DOCTYPE html>
@@ -11,19 +11,19 @@
     <title>Login - Blog - Jaroslav Špác</title>
 
     <!-- Links and scripts -->
-    <link rel="stylesheet" href="styles/main.css">
-    <link rel="stylesheet" href="styles/pages/signforms.css">
-    <script defer src="scripts/pages/login/login-validations.js" type="module"></script>
+    <link rel="stylesheet" href="./src/styles/main.css">
+    <link rel="stylesheet" href="./src/styles/pages/signforms.css">
+    <script defer src="./src/scripts/pages/auth/login-validations.js" type="module"></script>
 
     <!-- Components -->
-    <link rel="stylesheet" href="styles/components/_header.css">
-    <link rel="stylesheet" href="styles/components/_buttons.css">
-    <link rel="stylesheet" href="styles/components/_forms.css">
-    <link rel="stylesheet" href="styles/components/_footer.css">
+    <link rel="stylesheet" href="./src/styles/components/_header.css">
+    <link rel="stylesheet" href="./src/styles/components/_buttons.css">
+    <link rel="stylesheet" href="./src/styles/components/_forms.css">
+    <link rel="stylesheet" href="./src/styles/components/_footer.css">
 </head>
 <body>
     <?php 
-        include 'components/_header.php';
+        include './src/components/_header.php';
     ?>
     <main class="sign">
         <div class="container">
@@ -38,7 +38,7 @@
                 <h1 class="heading-2">Log In</h1>
                 <p class="text-medium">Lorem ipsum dolor sit amet adipiscing elit.</p>
             </div>
-            <form id="login-form" class="sign-form" method="POST" action="includes/login/login.inc.php">
+            <form id="login-form" class="sign-form" method="POST" action="./src/includes/login/login.inc.php">
                 <?php
                     login_inputs();
                 ?>
@@ -49,7 +49,7 @@
         </div>
     </main>
     <?php 
-        include 'components/_footer.html'; 
+        include './src/components/_footer.html'; 
     ?>
 </body>
 </html>

@@ -1,7 +1,5 @@
 <?php
-    // require_once "config.php";
-    require_once "includes/blog/blog_controller.inc.php";
-    require_once "includes/blog/blog_view.inc.php"; 
+    require_once "./src/includes/blog/blog.inc.php";
 ?>
 
 <!DOCTYPE html>
@@ -13,24 +11,24 @@
     <meta name="description" content="Osobní blog Jaroslava Špáce">
 
     <!-- Links and scripts -->
-    <link rel="stylesheet" href="styles/main.css">
-    <link rel="stylesheet" href="styles/blog-post.css">
+    <link rel="stylesheet" href="./src/styles/main.css">
+    <link rel="stylesheet" href="./src/styles/blog-post.css">
 
     <!-- Components -->
-    <link rel="stylesheet" href="styles/components/_header.css">
-    <link rel="stylesheet" href="styles/components/_footer.css">
-    <link rel="stylesheet" href="styles/components/_buttons.css">
+    <link rel="stylesheet" href="./src/styles/components/_header.css">
+    <link rel="stylesheet" href="./src/styles/components/_footer.css">
+    <link rel="stylesheet" href="./src/styles/components/_buttons.css">
 </head>
 <body>
     <?php 
-        include "components/_header.php";
+        include "./src/components/_header.php";
     ?>
     <main>
         <section class="blog-highlight">
             <div class="container">
                 <a class="blog-highlight-card" href="post-detail.php">
                     <!-- Post thumbnail image -->
-                    <img src="./assets/placeholder.png" alt="Blog post image" class="blog-highlight-card__image">
+                    <img src="./public/assets/placeholder.png" alt="Blog post image" class="blog-highlight-card__image">
                     <div class="blog-highlight-card__content">
                         <!-- Post details -->
                         <div class="blog-highlight-card__detail">
@@ -40,7 +38,7 @@
                         </div>
                         <!-- Post information -->
                         <div class="blog-highlight-card__info">
-                            <img src="./assets/placeholder.png" alt="Blog post image" class="blog-highlight-card__avatar">
+                            <img src="./public/assets/placeholder.png" alt="Blog post image" class="blog-highlight-card__avatar">
                             <div>
                                 <p class="blog-highlight-card__author">Author name</p>
                                 <p class="blog-highlight-card__date">11 Jan 2022</p>
@@ -56,13 +54,13 @@
         <section class="blog-posts">
             <div class="container">
                 <?php
-                    generate_posts($posts);
+                    generate_posts($all_blog_posts);
                 ?>
             </div>
         </section>
     </main>
     <?php 
-        include "components/_footer.html";
+        include "./src/components/_footer.html";
     ?>
 </body>
 </html>

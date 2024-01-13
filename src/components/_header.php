@@ -6,7 +6,7 @@
                 <?php
                     if(isset($_SESSION["user_id"])) {
                         echo '
-                            <form method="POST" action="./includes/login/logout.inc.php">
+                            <form method="POST" action="./src/includes/login/logout.inc.php">
                                 <button class="cta cta__primary" type="submit">Logout</button>
                             </form>
                         ';

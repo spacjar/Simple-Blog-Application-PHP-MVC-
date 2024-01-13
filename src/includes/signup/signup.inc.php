@@ -59,13 +59,13 @@
 
                 $_SESSION["signup_data"] = $signupData;
 
-                header("Location: ../../signup.php");
+                header("Location: ../../../signup.php");
                 die();
             }
 
             create_user($pdo, $username, $email, $password);
 
-            header("Location: ../../index.php?signup=success");
+            header("Location: ../../../login.php");
 
             $pdo = null;
             $stmt = null;
@@ -75,7 +75,7 @@
             die("Query failed: " . $e->getMessage());
         }
     } else {
-        header("Location: ../../index.php");
+        header("Location: ../../../index.php");
         die();
     }
 ?>

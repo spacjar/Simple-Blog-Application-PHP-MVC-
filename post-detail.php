@@ -7,17 +7,17 @@
     <meta name="description" content="Osobní blog Jaroslava Špáce">
 
     <!-- Links and scripts -->
-    <link rel="stylesheet" href="styles/main.css">
-    <link rel="stylesheet" href="styles/pages/blog-post-detail.css">
+    <link rel="stylesheet" href="./src/styles/main.css">
+    <link rel="stylesheet" href="./src/styles/pages/blog-post-detail.css">
 
     <!-- Components -->
-    <link rel="stylesheet" href="styles/components/_header.css">
-    <link rel="stylesheet" href="styles/components/_footer.css">
-    <link rel="stylesheet" href="styles/components/_buttons.css">
+    <link rel="stylesheet" href="./src/styles/components/_header.css">
+    <link rel="stylesheet" href="./src/styles/components/_footer.css">
+    <link rel="stylesheet" href="./src/styles/components/_buttons.css">
 </head>
 <body>
     <?php 
-        include "components/_header.php";
+        include "./src/components/_header.php";
     ?>
     <main class="blog-detail">
         <div class="blog-detail-header">
@@ -37,7 +37,7 @@
             </div>
         </div> -->
         <div class="blog-detail-thumbnail">
-            <img src="./assets/placeholder.png" alt="Blog thumbnail">
+            <img src="./src/assets/placeholder.png" alt="Blog thumbnail">
         </div>
         <div class="blog-detail-content">
             <div class="container">
@@ -62,7 +62,7 @@
         </div>
     </main>
     <?php 
-        include "components/_footer.html";
+        include "./src/components/_footer.html";
     ?>
 </body>
 </html>

@@ -48,7 +48,7 @@
 
                 $_SESSION["login_data"] = $loginData;
 
-                header("Location: ../../login.php?login=failed");
+                header("Location: ../../../login.php");
                 die();
             }
 
@@ -64,7 +64,7 @@
 
             $_SESSION["last_regeneration"] = time();
 
-            header("Location: ../../dashboard/index.php");
+            header("Location: ../../../dashboard/index.php");
 
             $pdo = null;
             $stmt = null;
@@ -74,7 +74,7 @@
             die("Query failed: " . $e->getMessage());
         }
     } else {
-        header("Location: ../../index.php");
+        header("Location: ../../../index.php");
         die();
     }
 ?>

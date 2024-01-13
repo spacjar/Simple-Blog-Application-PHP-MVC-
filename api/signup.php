@@ -1,7 +1,7 @@
 <?php
-    require_once "../includes/config_db.php";
-    require_once "../includes/signup/signup_model.inc.php";
-    require_once "../includes/signup/signup_controller.inc.php";
+    require_once "../src//includes/config_db.php";
+    require_once "../src//includes/signup/signup_model.inc.php";
+    require_once "../src//includes/signup/signup_controller.inc.php";
 
     function checkUsername($pdo, $username) {
         if(is_username_available($pdo, $username) === true) {
