@@ -54,14 +54,17 @@
 
             $newSessionId = session_create_id();
             $sessionId = $newSessionId . "_" . $result["id"];
+            
+            session_write_close();
             session_id($sessionId);
+            session_start();
             
             $_SESSION["user_id"] = $result["id"];
             $_SESSION["user_email"] = htmlspecialchars($result["email"]); // We sanitize the email before storing it in the session, because we might output it on the website
 
             $_SESSION["last_regeneration"] = time();
 
-            header("Location: ../../index.php?login=success");
+            header("Location: ../../dashboard/index.php");
 
             $pdo = null;
             $stmt = null;

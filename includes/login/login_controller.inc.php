@@ -11,7 +11,7 @@
     }
 
     function get_user_by_email(object $pdo, string $email) {
-        get_user($pdo, $email);
+        return get_user($pdo, $email);
     }
 
     function is_email_valid(string $email): bool {

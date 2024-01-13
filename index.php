@@ -24,7 +24,7 @@
 </head>
 <body>
     <?php 
-        include "components/_header.html";
+        include "components/_header.php";
     ?>
     <main>
         <section class="blog-highlight">

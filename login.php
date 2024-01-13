@@ -23,10 +23,17 @@
 </head>
 <body>
     <?php 
-        include 'components/_header.html';
+        include 'components/_header.php';
     ?>
     <main class="sign">
         <div class="container">
+            <?php
+                if(isset($_SESSION["user_id"])) {
+                    echo '
+                        <h1 class="heading-2">You are already logged in as ' . $_SESSION["user_email"] .  '</h1>
+                    ';
+                }
+            ?>
             <div class="sign-description">
                 <h1 class="heading-2">Log In</h1>
                 <p class="text-medium">Lorem ipsum dolor sit amet adipiscing elit.</p>

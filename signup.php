@@ -23,7 +23,7 @@
 </head>
 <body>
     <?php 
-        include "components/_header.html";
+        include "components/_header.php";
     ?>
     <main class="sign">
         <div class="container">
