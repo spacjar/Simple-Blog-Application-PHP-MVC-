@@ -3,17 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
+
+    <title>ZWA Term Project - Blog</title>
+
+    <link rel="stylesheet" href="../assets/css/main.css">
 <body>
-    <header>
-        <nav class="container">
-            <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/login">Login</a></li>
-                <li><a href="/register">Register</a></li>
-            </ul>
-        </nav>
+    <header class="header">
+        <div class="container">
+            <nav>
+                <a href="/" class="header__logo">Dev blog</a>
+                <div class="header__buttons">
+                    <a href="/">Home</a>
+                    <a href="/register" class="cta cta__primary">Register</a>
+                    <a href="/login" class="cta cta__secondary">Login</a>
+                </div>
+            </nav>
+        </div>
     </header>
     <div class="container">
         {{content}}

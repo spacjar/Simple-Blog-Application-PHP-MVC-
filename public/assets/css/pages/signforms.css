@@ -1,0 +1,50 @@
+.sign .container {
+    min-height: 90vh;
+    padding-top: 64px;
+    padding-bottom: 64px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.sign .container > *{
+    width: 100%;
+    max-width: 480px !important;
+}
+
+.sign-description {
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.sign-description h1 {
+    margin-bottom: 16px;
+}
+
+.sign-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+}
+
+.sign-form .sign-form__group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+}
+
+.sign-form .sign-form__group input.error {
+    color: red;
+    border: 1px solid red;
+    background-color: rgba(255, 0, 0, 0.1);
+}
+
+/* Override button styles */
+.sign-form .cta {
+    padding: 12px 20px !important; 
+}
