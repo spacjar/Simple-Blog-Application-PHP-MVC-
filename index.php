@@ -1,8 +1,7 @@
 <?php
-    include 'DB/database.php';
-    include "components/_post.php";
-
-    $posts = $database->getAllPosts();
+    // require_once "config.php";
+    require_once "includes/blog/blog_controller.inc.php";
+    require_once "includes/blog/blog_view.inc.php"; 
 ?>
 
 <!DOCTYPE html>
@@ -57,9 +56,7 @@
         <section class="blog-posts">
             <div class="container">
                 <?php
-                    foreach($posts as $post) {
-                        echo generateBlogPostCard("#tag", $post['title'], $post['content'], $post["username"], $post["created_at"], 5);
-                    }
+                    generate_posts($posts);
                 ?>
             </div>
         </section>
