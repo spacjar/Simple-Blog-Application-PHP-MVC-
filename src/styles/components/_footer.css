@@ -1,7 +1,0 @@
-@import "../global/_variables.css";
-
-footer {
-    display: flex;
-    padding: 80px 0;
-    background-color: var(--black-100);
-}

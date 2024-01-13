@@ -1,8 +1,0 @@
-:root {
-    --xs: 320px;   /* Extra Small devices */
-    --sm: 480px;   /* Small devices (phones) */
-    --md: 768px;   /* Medium devices (tablets in portrait) */
-    --lg: 1024px;  /* Large devices (tablets in landscape & small laptops) */
-    --xl: 1280px;  /* Extra Large devices (large laptops, desktops) */
-    --xxl: 1440px; /* Very large devices (wide screens) */
-}
