@@ -36,7 +36,7 @@
 
                 if($user->validate() && $user->create()) {
                     Application::$app->session->setFlash("success", "Thanks for registering");
-                    $response->redirect("/dashboard");
+                    $response->redirect("/login");
                 }
 
                 return $this->render("register", [
