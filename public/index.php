@@ -15,7 +15,7 @@
         "userClass" => UserModel::class
     ];
     
-    $app = new Application(dirname(__DIR__), $config);
+    $app = new Application(dirname(__DIR__) . DIRECTORY_SEPARATOR . 'src', $config);
     
     // General routes
     $app->router->get('/', [BlogController::class, "handleList"]);
