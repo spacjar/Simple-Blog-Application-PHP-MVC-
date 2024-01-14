@@ -1,10 +1,13 @@
 <?php
-    require_once __DIR__ . "/../core/Model.php";
+    require_once __DIR__ . "/../core/Application.php";
+    require_once __DIR__ . "/Model.php";
 
     abstract class DBModel extends Model {
-        abstract public function tableName(): string;
+        abstract public static function tableName(): string;
 
         abstract public function attributes(): array;
+
+        abstract public static function primaryKey(): string;
 
         public static function prepare($sql) {
             return Application::$app->db->prepare($sql);
@@ -30,7 +33,7 @@
             }
         }
 
-        public function getAll() {
+        public static function getAll() {
             try {
                 $tableName = $this->tableName();
                 $statement = self::prepare("SELECT * FROM $tableName");
@@ -42,13 +45,17 @@
             }
         }
 
-        public function getById($id, $idColumn = "id") {
-            try {
-                $tableName = $this->tableName();
-                $statement = self::prepare("SELECT * FROM $tableName WHERE $idColumn = :id");
-                $statement->bindValue(":id", $id);
+        public static function getById($where) {
+            try {      
+                $tableName = static::tableName();
+                $attributes = array_keys($where);
+                $sql = implode("AND", array_map(fn($attr) => "$attr = :$attr", $attributes));
+                $statement = self::prepare("SELECT * FROM $tableName WHERE $sql");
+                foreach ($where as $key => $item) {
+                    $statement->bindValue(":$key", $item);
+                }
                 $statement->execute();
-                return $statement->fetch(PDO::FETCH_ASSOC);
+                return $statement->fetchObject(static::class);
             } catch(PDOException $e) {
                 // echo $e->getMessage();
                 return false;

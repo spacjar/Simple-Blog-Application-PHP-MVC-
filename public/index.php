@@ -10,7 +10,8 @@
             "name" => DB_NAME,
             "user" => DB_USER,
             "password" => DB_PASSWORD,
-        ]
+        ],
+        "userClass" => UserModel::class
     ];
     
     $app = new Application(dirname(__DIR__), $config);

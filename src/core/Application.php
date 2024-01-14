@@ -7,24 +7,40 @@
     require_once __DIR__ . "/Database.php";
 
     class Application {
+        public static Application $app;
+
         public static string $ROOT_DIR;
+        public string $userClass;
+
         public Router $router;
         public Request $request;
         public Response $response;
         public Controller $controller;
         public Session $session;
         public Database $db;
-        public static Application $app;
+        public ?UserModel $user;
         
         public function __construct(string $rootDir, array $config) {
+            $this->user = null;
+            $this->userClass = $config['userClass'];
+
             self::$app = $this;
             self::$ROOT_DIR = $rootDir;
+
             $this->request = new Request();
             $this->response = new Response();
             $this->router = new Router($this->request, $this->response);
+            $this->db = new Database($config['db']);
             $this->controller = new Controller();
             $this->session = new Session();
-            $this->db = new Database($config['db']);
+
+            $primaryValue = $this->session->get("user");
+            if($primaryValue) {
+                $primaryKey = $this->userClass::primaryKey();
+                $this->user = $this->userClass::getById([$primaryKey => $primaryValue]);
+            } else {
+                $this->user = null;
+            }
         }
 
         public function run() {
@@ -37,6 +53,23 @@
 
         public function setController(Controller $controller) {
             $this->controller = $controller;
+        }
+
+        public function login(UserModel $user) {
+            $this->user = $user;
+            $primaryKey = $user->primaryKey();
+            $primaryValue = $user->{$primaryKey};
+            $this->session->set("user", $primaryValue);
+            return true;
+        }
+
+        public function logout() {
+            $this->user = null;
+            $this->session->remove("user");
+        }
+
+        public static function isGuest() {
+            return !self::$app->user;
         }
     }
 ?>
