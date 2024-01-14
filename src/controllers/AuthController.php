@@ -1,7 +1,7 @@
 <?php
     require_once __DIR__ . "/../core/Controller.php";
     require_once __DIR__ . "/../core/Request.php";
-    require_once __DIR__ . "/../models/RegisterModel.php";
+    require_once __DIR__ . "/../models/UserModel.php";
     
     class AuthController extends Controller {
         public function handleLogin(Request $request) {
@@ -16,22 +16,22 @@
 
         public function handleRegister(Request $request) {
             
-            $registerModel = new RegisterModel();
+            $user = new UserModel();
             if($request->isPost()) {
-                $registerModel->loadData($request->getBody());
+                $user->loadData($request->getBody());
 
-                if($registerModel->validate() && $registerModel->register()) {
-                    return "Success";
+                if($user->validate() && $user->create()) {
+                    Application::$app->response->redirect("/dashboard");
                 }
 
                 return $this->render("register", [
-                    "model" => $registerModel
+                    "model" => $user
                 ]);
             }
             
             $this->setLayout("register");
             return $this->render("register", [
-                "model" => $registerModel
+                "model" => $user
             ]);
         }
 

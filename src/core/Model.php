@@ -44,6 +44,18 @@
                     if($ruleName === self::RULE_MATCH && $value !== $this->{$rule["match"]}) {
                         $this->addError($attribute, self::RULE_MATCH, $rule);
                     }
+                    if($ruleName === self::RULE_UNIQUE) {
+                        $className = $rule["class"];
+                        $uniqueAttr = $rule["attribute"] ?? $attribute;
+                        $tableName = $className::tableName();
+                        $statement = Application::$app->db->prepare("SELECT * FROM $tableName WHERE $uniqueAttr = :attr");
+                        $statement->bindValue(":attr", $value);
+                        $statement->execute();
+                        $record = $statement->fetchObject();
+                        if($record) {
+                            $this->addError($attribute, self::RULE_UNIQUE, ["field" => $attribute]);
+                        }
+                    }
                 }
             }
 
