@@ -3,6 +3,7 @@
     require_once __DIR__ . "/Controller.php";
     require_once __DIR__ . "/Request.php";
     require_once __DIR__ . "/Response.php";
+    require_once __DIR__ . "/Session.php";
     require_once __DIR__ . "/Database.php";
 
     class Application {
@@ -11,6 +12,7 @@
         public Request $request;
         public Response $response;
         public Controller $controller;
+        public Session $session;
         public Database $db;
         public static Application $app;
         
@@ -21,6 +23,7 @@
             $this->response = new Response();
             $this->router = new Router($this->request, $this->response);
             $this->controller = new Controller();
+            $this->session = new Session();
             $this->db = new Database($config['db']);
         }
 
