@@ -8,6 +8,7 @@
     class DashboardController extends Controller {
         public function __construct() {
             $this->registerMiddleware(new AuthMiddleware(['dashboard', 'dashboardPosts', 'dashboardPost', 'dashboardPostNew', 'dashboardPostEdit', 'dashboardPostDelete']));
+            $this->setLayout("dashboard");
         }
 
         public function dashboard(Request $request, Response $response) {
@@ -18,7 +19,10 @@
             return $this->render("dashboard-posts");
         }
 
-        public function dashboardPost(Request $request, Response $response) {
+        public function dashboardPostById(Request $request, Response $response) {
+            // echo("<pre>");
+            // var_dump($request->getBody(), $request->getParams("id"));
+            // echo("</pre>");
             return $this->render("dashboard-post");
         }
 
@@ -38,7 +42,7 @@
                 }
 
                 return $this->render('dashboard-post-new', [
-                    'model' => $blogModel
+                    'model' => $blogModel,
                 ]);
             }
 
