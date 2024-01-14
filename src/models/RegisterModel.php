@@ -1,14 +1,23 @@
 <?php
-    require_once __DIR__ . "/../core/Model.php";
+    require_once __DIR__ . "/../core/DBModel.php";
     
-    class RegisterModel extends Model {
+    class RegisterModel extends DBModel {
         public string $email = "";
         public string $username = "";
         public string $password = "";
         public string $passwordConfirm = "";
 
+        public function tableName(): string {
+            return "users";
+        }
+
+        public function attributes(): array {
+            // return ["email", "username", "password", "created_at", "last_login"];
+            return ["email", "username", "password"];
+        }
+
         public function register() {
-            echo "Creating new user";
+            return $this->create();
         }
 
         public function rules(): array {
