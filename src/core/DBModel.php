@@ -33,10 +33,16 @@
             }
         }
 
-        public static function getAll() {
+        public static function getAll($orderBy = "") {
             try {
                 $tableName = static::tableName();
-                $statement = self::prepare("SELECT * FROM $tableName");
+                $query = "SELECT * FROM $tableName";
+                
+                if (!empty($orderBy)) {
+                    $query .= " ORDER BY $orderBy";
+                }
+                
+                $statement = self::prepare($query);
                 $statement->execute();
                 return $statement->fetchAll(PDO::FETCH_ASSOC);
             } catch(PDOException $e) {

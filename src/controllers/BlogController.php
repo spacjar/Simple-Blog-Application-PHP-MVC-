@@ -4,11 +4,14 @@
     require_once __DIR__ . "/../models/BlogModel.php";
 
 
-    class BlogController extends Controller{
-        public function handleList()
+    class BlogController extends Controller {
+
+        public function handleList(Request $request)
         {
-            $posts = BlogModel::getAllBlogPosts();
-            return $this->render('main', ['posts' => $posts]);
+            $page = $request->getQueryParam('page') ?? 1;
+            $postsPerPage = 5;
+            $posts = BlogModel::getAllBlogPosts($page, $postsPerPage);
+            return $this->render('main', ['posts' => $posts, 'page' => $page]);
         }
 
         public function handleDetailList(Request $request) {

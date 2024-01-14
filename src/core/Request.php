@@ -54,5 +54,10 @@
         {
             return $this->routeParams[$param] ?? $default;
         }
+
+        public function getQueryParam($param, $default = null)
+        {
+            return $_GET[$param] ?? $default;
+        }
     }
 ?>

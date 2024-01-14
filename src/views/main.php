@@ -63,4 +63,19 @@
             ?>
         </div>
     </section>
+    <div class="paggination">
+        <div class="container">
+        <?php
+            // if ($page > 1) {
+            //     echo "<a href=\"/?page=" . ($page - 1) . "\">Previous</a>";
+            // }
+            // if (!empty($posts)) {
+            //     echo "<a href=\"/?page=" . ($page + 1) . "\">Next</a>";
+            // }
+            echo("Page: $page");
+        ?>
+        <a href="/?page=<?= $page - 1 ?>">Previous</a>
+        <a href="/?page=<?= $page + 1 ?>">Next</a>
+        </div>
+    </div>
 </main>

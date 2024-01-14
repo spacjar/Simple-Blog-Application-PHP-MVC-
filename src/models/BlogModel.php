@@ -22,16 +22,20 @@
 
         public function attributes(): array {
             // return ["author_id", "title", "content", "created_at"];
-            return ["author_id", "title", "content"];
+            return ["author_id", "title", "content", "created_at"];
         }
 
         public function rules(): array {
             return [];
         }
 
-        public static function getAllBlogPosts() {
-            $blogPosts = self::getAll();
-            return $blogPosts;
+        public static function getAllBlogPosts($page, $postsPerPage) {
+            $offset = ($page - 1) * $postsPerPage;
+            // $query = "SELECT * FROM posts ORDER BY created_at DESC LIMIT $postsPerPage OFFSET $offset";
+            $query = "SELECT * FROM posts ORDER BY id DESC LIMIT $postsPerPage OFFSET $offset";
+            $statement = self::prepare($query);
+            $statement->execute();
+            return $statement->fetchAll(PDO::FETCH_ASSOC);
         }
 
         public static function getBlogPostById($id) {
