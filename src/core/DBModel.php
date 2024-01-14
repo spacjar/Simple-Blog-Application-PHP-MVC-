@@ -35,7 +35,7 @@
 
         public static function getAll() {
             try {
-                $tableName = $this->tableName();
+                $tableName = static::tableName();
                 $statement = self::prepare("SELECT * FROM $tableName");
                 $statement->execute();
                 return $statement->fetchAll(PDO::FETCH_ASSOC);
