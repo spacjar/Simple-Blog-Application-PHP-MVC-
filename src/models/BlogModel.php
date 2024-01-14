@@ -9,6 +9,8 @@
         public string $content = "";
         public string $author = "";
         public string $created_at = "";
+        public $updated_at = "";
+        public $deleted = "";
 
         public static function primaryKey(): string {
             return "id";
