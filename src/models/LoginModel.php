@@ -33,9 +33,9 @@
                 return false;
             }
 
-            echo "<pre>";
-            var_dump($user);
-            echo "</pre>";
+            // echo "<pre>";
+            // var_dump($user);
+            // echo "</pre>";
 
             return Application::$app->login($user);
         }

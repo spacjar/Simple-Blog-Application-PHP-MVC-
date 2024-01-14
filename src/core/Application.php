@@ -38,7 +38,14 @@
             $primaryValue = $this->session->get("user");
             if($primaryValue) {
                 $primaryKey = $this->userClass::primaryKey();
-                $this->user = $this->userClass::getById([$primaryKey => $primaryValue]);
+                $user = $this->userClass::getById([$primaryKey => $primaryValue]);
+
+                // Checks if the user exists in the DB
+                if ($user === false) {
+                    $user = null;
+                }
+                
+                $this->user = $user;
             } else {
                 $this->user = null;
             }
@@ -48,6 +55,10 @@
             try {
                 echo $this->router->resolve();
             } catch(Exception $e) {
+                if($e->getCode() === 403) {
+                    $this->response->redirect("/login");
+                    return;
+                }
                 $this->response->setStatusCode($e->getCode());
                 echo $this->router->renderView("_error", [
                     "exception" => $e
@@ -79,5 +90,13 @@
         public static function isGuest() {
             return !self::$app->user;
         }
+
+        // public static function isAdmin() {
+        //     return self::$app->user->super_admin;
+        // }
+
+        // public static function isBanned() {
+        //     return self::$app->user->banned;
+        // }
     }
 ?>

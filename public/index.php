@@ -1,7 +1,8 @@
 <?php
     require_once __DIR__ . "/../src/core/Application.php";
     require_once __DIR__ . "/../src/controllers/AuthController.php";
-    // require_once __DIR__ . "/../src/controllers/BlogController.php";
+    require_once __DIR__ . "/../src/controllers/BlogController.php";
+    require_once __DIR__ . "/../src/controllers/DashboardController.php";
     require_once __DIR__ . "/../src/config/config.php";
     
     $config = [
@@ -17,15 +18,22 @@
     $app = new Application(dirname(__DIR__), $config);
     
     // General routes
-    $app->router->get('/', "main");
-    // $app->router->get('/blog/{post-id}', [BlogController::class, "getPost"]);
+    $app->router->get('/', [BlogController::class, "handleList"]);
+    $app->router->get('/post/{id}', [BlogController::class, "handleDetailList"]);
 
     // Dashboard routes
-    $app->router->get('/dashboard', [AuthController::class, "dashboard"]);
-    // $app->router->get('/dashboard/posts', "dashboard-posts");
-    // $app->router->get('/dashboard/posts/{post-id}', "dashboard-post");
-    // $app->router->get('/dashboard/posts/{post-id}/edit', "dashboard-post-edit");
-    // $app->router->get('/dashboard/posts/new', "dashboard-post-new");
+    $app->router->get('/dashboard', [DashboardController::class, "dashboard"]);
+
+    // Dashboard posts routes
+    $app->router->get('/dashboard/posts', [DashboardController::class, "dashboardPosts"]);
+    $app->router->get('/dashboard/posts/{post-id}', [DashboardController::class, "dashboardPost"]);
+    $app->router->get('/dashboard/posts/new', [DashboardController::class, "dashboardPostNew"]);
+    $app->router->post('/dashboard/posts/new', [DashboardController::class, "dashboardPostNew"]);
+    $app->router->get('/dashboard/posts/{post-id}/edit', [DashboardController::class, "dashboardPostEdit"]);
+    $app->router->post('/dashboard/posts/{post-id}/delete', [DashboardController::class, "dashboardPostDelete"]);
+
+
+    // Dashboard users routes
     // $app->router->get('/dashboard/users', "dashboard-users");
     // $app->router->get('/dashboard/users/{user-id}', "dashboard-user");
     // $app->router->get('/dashboard/users/{user-id}/edit', "dashboard-user-edit");

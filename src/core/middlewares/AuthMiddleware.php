@@ -13,8 +13,17 @@
             if(Application::isGuest()) {
                 if(empty($this->actions) || in_array(Application::$app->controller->action, $this->actions)) {
                     throw new ForbiddenException();
-                    // Application::$app->response->redirect("/login");
                 }
+            } else if(Application::$app->user->banned) {
+                // TODO : Add flash message
+                Application::$app->response->redirect("/?banned=true");
+                Application::$app->logout();
+                return;
+            } else if(Application::$app->user->deleted) {
+                // TODO : Add flash message
+                Application::$app->response->redirect("/?deleted=true");
+                Application::$app->logout();
+                return;
             }
         }
     }

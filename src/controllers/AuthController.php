@@ -4,13 +4,8 @@
     require_once __DIR__ . "/../core/Response.php";
     require_once __DIR__ . "/../models/UserModel.php";
     require_once __DIR__ . "/../models/LoginModel.php";
-    require_once __DIR__ . "/../core/middlewares/AuthMiddleware.php";
     
     class AuthController extends Controller {
-        public function __construct() {
-            $this->registerMiddleware(new AuthMiddleware(["dashboard"]));
-        }
-
         public function handleLogin(Request $request, Response $response) {
             $loginModel = new LoginModel();
 
@@ -60,10 +55,6 @@
                 Application::$app->logout();
                 $response->redirect("/");
             }
-        }
-
-        public function dashboard(Request $request, Response $response) {
-            return $this->render("dashboard");
         }
     }
 ?>
