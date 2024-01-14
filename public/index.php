@@ -21,8 +21,8 @@
     // $app->router->get('/blog/{post-id}', [BlogController::class, "getPost"]);
 
     // Dashboard routes
-    $app->router->get('/dashboard', "dashboard");
-    $app->router->get('/dashboard/posts', "dashboard-posts");
+    $app->router->get('/dashboard', [AuthController::class, "dashboard"]);
+    // $app->router->get('/dashboard/posts', "dashboard-posts");
     // $app->router->get('/dashboard/posts/{post-id}', "dashboard-post");
     // $app->router->get('/dashboard/posts/{post-id}/edit', "dashboard-post-edit");
     // $app->router->get('/dashboard/posts/new', "dashboard-post-new");
