@@ -2,7 +2,7 @@
     <nav>
         <a href="/" class="header__logo">Dev blog</a>
         <div class="header__buttons">
-            <a href="/">Home</a>
+            <!-- <a href="/">Home</a> -->
             <?php if(Application::isGuest()): ?>
                 <a href="/login" class="cta cta__secondary">Login</a>
                 <a href="/register" class="cta cta__primary">Register</a>

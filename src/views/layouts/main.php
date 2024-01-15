@@ -10,8 +10,8 @@
 
     <title><?php echo $this->title ?></title>
 
-    <link rel="stylesheet" href="../assets/css/main.css">
-    <link rel="stylesheet" href="../assets/css/blog-post.css">
+    <link rel="stylesheet" href="../static/css/main.css">
+    <link rel="stylesheet" href="../static/css/blog-post.css">
 </head>
 <body>
     <header class="header">
