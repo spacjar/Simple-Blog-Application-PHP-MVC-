@@ -5,7 +5,7 @@
 
     class ApiController extends Controller {
 
-        public function handleSignupCheck(Request $request, Response $response)
+        public function handleRegisterCheck(Request $request, Response $response)
         {
             header('Content-Type: application/json');
 

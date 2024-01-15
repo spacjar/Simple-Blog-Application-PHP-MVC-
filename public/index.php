@@ -46,7 +46,7 @@
     $app->router->post('/logout', [AuthController::class, 'handleLogout']);
 
     // API routes
-    $app->router->get('/api/signup', [ApiController::class, "handleSignupCheck"]);
-    
+    $app->router->get('/api/register', [ApiController::class, "handleRegisterCheck"]);
+
     $app->run();
 ?>
