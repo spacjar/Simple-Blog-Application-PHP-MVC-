@@ -5,25 +5,40 @@
     require_once __DIR__ . "/../core/Response.php";
     require_once __DIR__ . "/../models/BlogModel.php";
 
+    /**
+     * Class DashboardController
+     * 
+     * This class represents the controller for the dashboard functionality of the blog application.
+     * It extends the base Controller class and handles the authentication middleware and layout settings.
+     */
     class DashboardController extends Controller {
         public function __construct() {
-            $this->registerMiddleware(new AuthMiddleware(['dashboard', 'dashboardPosts', 'dashboardPost', 'dashboardPostNew', 'dashboardPostEdit', 'dashboardPostDelete']));
+            $this->registerMiddleware(new AuthMiddleware(['dashboard', 'dashboardPosts', 'dashboardPostNew', 'dashboardPostEdit', 'dashboardPostDelete']));
             $this->setLayout("dashboard");
         }
 
-        public function dashboard(Request $request, Response $response) {
-            return $this->render("dashboard");
-        }
-
+        /**
+         * Renders the dashboard posts page.
+         *
+         * @param Request $request The HTTP request object.
+         * @param Response $response The HTTP response object.
+         * @return mixed The rendered view.
+         * @throws NotFoundException If an error occurs while retrieving the blog posts it renders custom not found page.
+         */
         public function dashboardPosts(Request $request, Response $response) {
-            return $this->render("dashboard-posts");
-        }
+            $posts = [];
+            
+            try {
+                $blogModel = new BlogModel();
+                $posts = $blogModel->getBlogPostsByUserId(Application::$app->user->id);
+            } catch (Exception $e) {
+                throw new NotFoundException();
+            }
 
-        public function dashboardPostById(Request $request, Response $response) {
-            // echo("<pre>");
-            // var_dump($request->getBody(), $request->getParams("id"));
-            // echo("</pre>");
-            return $this->render("dashboard-post");
+            return $this->render("dashboard-posts", [
+                'model' => $blogModel,
+                'posts' => $posts,
+            ]);
         }
 
         public function dashboardPostNew(Request $request, Response $response) {
@@ -51,14 +66,23 @@
             ]);
         }
 
+
         public function dashboardPostEdit(Request $request, Response $response) {
+
+            if($request->isPost()) {
+                return $response->redirect('/dashboard/posts');
+            }
+
             return $this->render("dashboard-post-edit");
         }
 
-        public function dashboardPostDelete(Request $request, Response $response) {
-            return $this->render("dashboard-post-delete");
-        }
 
-        // ... other methods ...
+        public function dashboardPostDelete(Request $request, Response $response) {
+            if($request->isPost()) {
+                return $response->redirect('/dashboard/posts');
+            }
+
+            return;
+        }
     }
 ?>
