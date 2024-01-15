@@ -7,12 +7,12 @@
         <form id="register-form" class="auth-form" method="POST">
             <div class="auth-form__group <?php echo $model->hasError('username') ? 'is-invalid' : '' ?>">
                 <label for="username-input" class="text-regular">Username (required)</label>
-                <input type="text" id="username-input" name="username" class="input" placeholder="Username" value="<?php echo htmlspecialchars($model->username);?>">
+                <input type="text" id="username-input" name="username" autocomplete="username" class="input" placeholder="Username" value="<?php echo htmlspecialchars($model->username);?>">
                 <div id="username-input-message-placeholder"><?php echo $model->getFirstError("username")?></div>
             </div>
             <div class="auth-form__group <?php echo $model->hasError('email') ? 'is-invalid' : '' ?>">
                 <label for="email-input" class="text-regular">Email (required)</label>
-                <input type="email" id="email-input" name="email" class="input" placeholder="Email" value="<?php echo htmlspecialchars($model->email);?>">
+                <input type="email" id="email-input" name="email" autocomplete="email" class="input" placeholder="Email" value="<?php echo htmlspecialchars($model->email);?>">
                 <div id="email-input-message-placeholder"><?php echo $model->getFirstError("email")?></div>
             </div>
             <div class="auth-form__group <?php echo $model->hasError('password') ? 'is-invalid' : '' ?>">
