@@ -1,5 +1,5 @@
 <?php
-    function generateBlogPostCard($id, $category, $title, $description, $author, $date, $readTime, $postImage = './assets/images/placeholder.png', $avatarImage = './assets/images/placeholder.png') {
+    function generateBlogPostCard($id, $category, $title, $description, $author, $date, $postImage = './assets/images/placeholder.png', $avatarImage = './assets/images/placeholder.png') {
         return '
             <a class="blog-post-card" href="/post/'.htmlspecialchars($id).'">
                 <!-- Post thumbnail image -->
@@ -15,10 +15,7 @@
                     <img src="'.htmlspecialchars($avatarImage).'" alt="Blog post image" class="blog-post-card__avatar">
                     <div>
                         <p class="blog-post-card__author">@'.htmlspecialchars($author).'</p>
-                        <p class="blog-post-card__date">'.htmlspecialchars($date).'</p>
-                        <div>
-                            <p class="blog-post-card__read-time">'.htmlspecialchars($readTime).' min</p>
-                        </div>
+                        <p class="blog-post-card__date">'.htmlspecialchars((new DateTime($date))->format('F j, Y')).'</p>
                     </div>
                 </div>
             </a>

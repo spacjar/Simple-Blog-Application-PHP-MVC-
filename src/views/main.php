@@ -26,8 +26,9 @@
                     <div class="blog-highlight-card__info">
                         <img src="./assets/images/placeholder.png" alt="Blog post image" class="blog-highlight-card__avatar">
                         <div>
-                            <p class="blog-highlight-card__author"><?php echo htmlspecialchars($firstPost["author_id"]); ?></p>
-                            <p class="blog-highlight-card__date"><?php echo htmlspecialchars($firstPost["created_at"]); ?></p>
+                            <p class="blog-highlight-card__author">@<?php echo htmlspecialchars($firstPost["author_id"]); ?></p>
+                            <!-- <p class="blog-highlight-card__date"><?php echo htmlspecialchars($firstPost["created_at"]); ?></p> -->
+                            <p class="blog-highlight-card__date"><?php echo htmlspecialchars((new DateTime($firstPost["created_at"]))->format('F j, Y')); ?></p>
                         </div>
                     </div>
                 </div>
@@ -48,13 +49,11 @@
                         echo generateBlogPostCard(
                             $post["id"],
                             // $post["category"],
-                            "Test cataegory",
+                            "Category",
                             $post["title"],
                             $post["content"],
                             $post["author_id"],
                             $post["created_at"],
-                            // $post["read_time"],
-                            "5 min",
                             // $post["image"],
                             // $post["avatar"]
                         );

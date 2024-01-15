@@ -14,9 +14,8 @@
     <link rel="stylesheet" href="../static/css/blog-post.css">
 </head>
 <body>
-    <header class="header">
-        <?php require_once __DIR__ . "/../components/_navbar.php"; ?>
-    </header>
+    <?php require_once __DIR__ . "/../components/_header.php"; ?>
     {{content}}
+    <?php require_once __DIR__ . "/../components/_footer.php"; ?>
 </body>
 </html>

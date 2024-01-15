@@ -9,7 +9,7 @@
         public function handleList(Request $request)
         {
             $page = $request->getQueryParam('page') ?? 1;
-            $postsPerPage = 5;
+            $postsPerPage = 10;
             $posts = BlogModel::getAllBlogPosts($page, $postsPerPage);
             return $this->render('main', ['posts' => $posts, 'page' => $page]);
         }
