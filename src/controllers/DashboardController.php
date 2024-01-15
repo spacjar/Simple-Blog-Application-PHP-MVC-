@@ -13,7 +13,7 @@
      */
     class DashboardController extends Controller {
         public function __construct() {
-            $this->registerMiddleware(new AuthMiddleware(['dashboard', 'dashboardPosts', 'dashboardPostNew', 'dashboardPostEdit', 'dashboardPostDelete']));
+            $this->registerMiddleware(new AuthMiddleware(['dashboardPosts', 'dashboardPostNew', 'dashboardPostEdit', 'dashboardPostDelete']));
             $this->setLayout("dashboard");
         }
 
@@ -52,7 +52,7 @@
 
                 if ($blogModel->validate()) {
                     // $blogModel->createBlogPost($authorId, $title, $content, $author);
-                    $blogModel->createBlogPost("1", "Test", "Content");
+                    // $blogModel->createBlogPost("1", "Test", "Content");
                     // return $response->redirect('/dashboard/posts');
                 }
 
