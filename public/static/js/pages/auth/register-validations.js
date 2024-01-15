@@ -8,7 +8,7 @@
 import { checkInputEmpty, checkPasswordMatch, chackEmailValidity, checkEmailAvailability, checkUsernameAvailability } from '../../utils/input-validation-utils.js';
 
 // Form
-const form = document.getElementById('sign-form');
+const form = document.getElementById('register-form');
 
 // Username input
 const usernameInput = document.getElementById('username-input');
@@ -23,8 +23,8 @@ const passwordInput = document.getElementById('password-input');
 const passwordInputMessage = document.getElementById('password-input-message-placeholder');
 
 // Password check input
-const passwordMatchInput = document.getElementById('password-check-input');
-const passwordMatchInputMessage = document.getElementById('password-check-input-message-placeholder');
+const passwordMatchInput = document.getElementById('password-confirm-input');
+const passwordMatchInputMessage = document.getElementById('password-confirm-input-message-placeholder');
 
 
 

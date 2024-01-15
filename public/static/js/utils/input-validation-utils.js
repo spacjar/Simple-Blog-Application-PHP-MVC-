@@ -9,7 +9,7 @@ import { GLOBAL_CONFIG } from "../config.js";
  */
 export const checkUsernameAvailability = async (username) => {
     try {
-        const response = await fetch(`${GLOBAL_CONFIG.BASE_URL}/api/signup.php?username=${username}`);
+        const response = await fetch(`${GLOBAL_CONFIG.BASE_URL}/api/register?username=${username}`);
         const data = await response.json();        
         return data?.isUsernameAvailable ? true : false;
     } catch(Err) {
@@ -28,7 +28,7 @@ export const checkUsernameAvailability = async (username) => {
  */
 export const checkEmailAvailability = async (email) => {
     try {
-        const response = await fetch(`${GLOBAL_CONFIG.BASE_URL}/api/signup.php?email=${email}`);
+        const response = await fetch(`${GLOBAL_CONFIG.BASE_URL}/api/register?email=${email}`);
         const data = await response.json();        
         return data?.isEmailAvailable ? true : false;
     } catch(Err) {
