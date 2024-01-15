@@ -2,6 +2,9 @@
     require_once __DIR__ . "/../core/Application.php";
     require_once __DIR__ . "/../core/DBModel.php";
     
+    /**
+     * Represents a blog post model in the application.
+     */
     class BlogModel extends DBModel {
         public int $id = 0;
         public int $author_id = 0;
@@ -12,18 +15,38 @@
         public $updated_at = "";
         public $deleted = "";
 
+        /**
+         * Returns the primary key attribute name for the model.
+         *
+         * @return string The primary key attribute name.
+         */
         public static function primaryKey(): string {
             return "id";
         }
 
+        /**
+         * Returns the table name for the model.
+         *
+         * @return string The table name.
+         */
         public static function tableName(): string {
             return "posts";
         }
 
+        /**
+         * Returns the list of attributes that can be mass assigned.
+         *
+         * @return array The list of attributes.
+         */
         public function attributes(): array {
             return ["author_id", "title", "content", "created_at"];
         }
 
+        /**
+         * Returns the validation rules for the model attributes.
+         *
+         * @return array The validation rules.
+         */
         public function rules(): array {
             return [];
         }
