@@ -72,6 +72,13 @@
             return !self::$app->user;
         }
 
+        public static function isAdmin() {
+            if(self::$app->user->super_admin === 1) {
+                return true;
+            }
+            return false;
+        }
+
         public function run() {
             try {
                 echo $this->router->resolve();

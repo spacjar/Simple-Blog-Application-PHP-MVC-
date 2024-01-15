@@ -30,8 +30,13 @@
                         <td data-label="Created at"><?php echo htmlspecialchars((new DateTime($post['created_at']))->format('F j, Y')); ?></td>
                         <td data-label="Actions">
                             <?php
-                                echo "<a href='/dashboard/posts/edit/" . htmlspecialchars($post["id"]) . "' class='btn btn__secondary'>Edit</a>";
-                                echo "<form action='/dashboard/posts/delete/". htmlspecialchars($post["id"]) . "' method='POST'><button class='btn btn__secondary'>Delete</button></form>";
+                            if($post['deleted'] === 0) {
+                                echo "<a href='/dashboard/posts/edit/" . htmlspecialchars($post["id"]) . "' class='cta cta__secondary'>Edit</a>";
+                                echo "<form action='/dashboard/posts/delete/". htmlspecialchars($post["id"]) . "' method='POST'><button class='cta cta__secondary'>Delete</button></form>";
+                            } else if (Application::isAdmin()) {
+                                echo "<p>Deleted</p>";
+                                // echo "<form action='/dashboard/posts/restore/". htmlspecialchars($post["id"]) . "' method='POST'><button class='btn btn__secondary'>Restore</button></form>";
+                            }
                             ?>
                         </td>
                     </tr>

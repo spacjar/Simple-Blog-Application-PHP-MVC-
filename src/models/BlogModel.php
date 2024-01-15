@@ -102,13 +102,14 @@
          */
         public static function getBlogPostsByUserId($userId) {
             try {
-                if(Application::$app->isAdmin()) {
+                if (Application::isAdmin()) {
                     $query = "SELECT * FROM posts ORDER BY created_at DESC";
+                    $statement = self::prepare($query);
                 } else {
                     $query = "SELECT * FROM posts WHERE author_id = :author_id AND deleted = 0 ORDER BY created_at DESC";
+                    $statement = self::prepare($query);
+                    $statement->bindValue(":author_id", $userId);
                 }
-                $statement = self::prepare($query);
-                $statement->bindValue(":author_id", $userId);
                 $statement->execute();
                 return $statement->fetchAll(PDO::FETCH_ASSOC);
             } catch(PDOException $e) {
