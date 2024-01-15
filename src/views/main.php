@@ -4,6 +4,7 @@
 
 <main>
     <section class="blog-highlight">
+        <div class="container">
         <?php
             if (empty($posts)) {
                 echo "<p>No posts found</p>";
@@ -11,7 +12,6 @@
                 $firstPost = array_shift($posts);
         ?>
 
-        <div class="container">
             <a class="blog-highlight-card" href="/post/<?php echo htmlspecialchars($firstPost["id"]); ?>">
                 <!-- Post thumbnail image -->
                 <img src="./assets/images/placeholder.png" alt="Blog post image" class="blog-highlight-card__image">
@@ -63,19 +63,8 @@
             ?>
         </div>
     </section>
-    <div class="paggination">
-        <div class="container">
-        <?php
-            // if ($page > 1) {
-            //     echo "<a href=\"/?page=" . ($page - 1) . "\">Previous</a>";
-            // }
-            // if (!empty($posts)) {
-            //     echo "<a href=\"/?page=" . ($page + 1) . "\">Next</a>";
-            // }
-            echo("Page: $page");
-        ?>
-        <a href="/?page=<?= $page - 1 ?>">Previous</a>
-        <a href="/?page=<?= $page + 1 ?>">Next</a>
-        </div>
+    <div class="pagination">
+        <a href="/?page=<?= $page - 1 ?>" class="page-item">Previous</a>
+        <a href="/?page=<?= $page + 1 ?>" class="page-item">Next</a>
     </div>
 </main>

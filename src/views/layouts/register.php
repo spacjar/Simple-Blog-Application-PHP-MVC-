@@ -19,6 +19,6 @@
         </header>
         {{content}}
         
-        <!-- <script src="../static/js/pages/auth/register-validations.js" type="module"></script> -->
+        <script src="../static/js/pages/auth/register-validations.js" type="module"></script>
     </body>
 </html>

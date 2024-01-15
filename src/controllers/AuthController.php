@@ -17,6 +17,7 @@
                     return;
                 }
 
+                $this->setLayout("login");
                 return $this->render("login", [
                     "model" => $loginModel
                 ]);
@@ -39,6 +40,7 @@
                     $response->redirect("/login");
                 }
 
+                $this->setLayout("register");
                 return $this->render("register", [
                     "model" => $user
                 ]);
