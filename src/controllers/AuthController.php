@@ -13,7 +13,7 @@
                 $loginModel->loadData($request->getBody());
 
                 if($loginModel->validate() && $loginModel->login()) {
-                    $response->redirect("/dashboard");
+                    $response->redirect("/dashboard/posts");
                     return;
                 }
 

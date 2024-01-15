@@ -22,22 +22,17 @@
     $app->router->get('/', [BlogController::class, "handleList"]);
     $app->router->get('/post/{id}', [BlogController::class, "handleDetailList"]);
 
-    // Dashboard routes
-    $app->router->get('/dashboard', [DashboardController::class, "dashboard"]);
-
     // Dashboard posts routes
     $app->router->get('/dashboard/posts', [DashboardController::class, "dashboardPosts"]);
-    $app->router->get('/dashboard/posts/{post-id}', [DashboardController::class, "dashboardPost"]);
     $app->router->get('/dashboard/posts/new', [DashboardController::class, "dashboardPostNew"]);
     $app->router->post('/dashboard/posts/new', [DashboardController::class, "dashboardPostNew"]);
     $app->router->get('/dashboard/posts/{post-id}/edit', [DashboardController::class, "dashboardPostEdit"]);
+    $app->router->post('/dashboard/posts/{post-id}/edit', [DashboardController::class, "dashboardPostEdit"]);
     $app->router->post('/dashboard/posts/{post-id}/delete', [DashboardController::class, "dashboardPostDelete"]);
 
     // Dashboard users routes
     // $app->router->get('/dashboard/users', "dashboard-users");
-    // $app->router->get('/dashboard/users/{user-id}', "dashboard-user");
-    // $app->router->get('/dashboard/users/{user-id}/edit', "dashboard-user-edit");
-
+    
     // Auth routes
     $app->router->get('/login', [AuthController::class, "handleLogin"]);
     $app->router->post('/login', [AuthController::class, "handleLogin"]);
