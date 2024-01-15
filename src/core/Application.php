@@ -10,7 +10,7 @@
     class Application {
         public static Application $app;
 
-        public static string $ROOT_DIR;
+        public static string $ROOT_DIRECTORY;
         public string $userClass;
         public string $layout = "main";
 
@@ -28,7 +28,7 @@
             $this->userClass = $config['userClass'];
 
             self::$app = $this;
-            self::$ROOT_DIR = $rootDir;
+            self::$ROOT_DIRECTORY = $rootDir;
 
             $this->request = new Request();
             $this->response = new Response();
