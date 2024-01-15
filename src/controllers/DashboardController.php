@@ -1,9 +1,9 @@
 <?php
+    require_once __DIR__ . "/../models/BlogModel.php";
     require_once __DIR__ . "/../core/Controller.php";
     require_once __DIR__ . "/../core/middlewares/AuthMiddleware.php";
     require_once __DIR__ . "/../core/Request.php";
     require_once __DIR__ . "/../core/Response.php";
-    require_once __DIR__ . "/../models/BlogModel.php";
 
     /**
      * Class DashboardController
@@ -41,19 +41,25 @@
             ]);
         }
 
+
         public function dashboardPostNew(Request $request, Response $response) {
             $blogModel = new BlogModel();
 
             if ($request->isPost()) {
-                $blogModel->loadData($request->getBody());
-                echo("<pre>");
-                var_dump($blogModel);
-                echo("</pre>");
+                try {
+                    $blogModel->loadData($request->getBody());
+                    if ($blogModel->validate()) {
+                        $date = new DateTime();
+                        $date = $date->format('Y-m-d H:i:s');
+                        $userId = Application::$app->user->id;
+                        $res = $blogModel->createBlogPost($userId, $blogModel->title, $blogModel->content, $date);
 
-                if ($blogModel->validate()) {
-                    // $blogModel->createBlogPost($authorId, $title, $content, $author);
-                    // $blogModel->createBlogPost("1", "Test", "Content");
-                    // return $response->redirect('/dashboard/posts');
+                        if($res) {
+                            return $response->redirect('/dashboard/posts');
+                        }
+                    }
+                } catch (Exception $e) {
+                    throw new NotFoundException();
                 }
 
                 return $this->render('dashboard-post-new', [
@@ -68,8 +74,13 @@
 
 
         public function dashboardPostEdit(Request $request, Response $response) {
-
             if($request->isPost()) {
+            // Check if the post exists
+
+            // Check if the user is the author of the post
+            
+
+
                 return $response->redirect('/dashboard/posts');
             }
 
@@ -79,6 +90,26 @@
 
         public function dashboardPostDelete(Request $request, Response $response) {
             if($request->isPost()) {
+                $blogModel = new BlogModel();
+
+                $postId = $request->getRouteParam('postId') ?? null;
+                $post = $blogModel->getBlogPostById($postId) ?? null;
+
+                if (!$post) {
+                    $response->setStatusCode(404);
+                    echo "Post not found.";
+                    return;
+                    // return $this->render('error', ['message' => 'Post not found.']);
+                }
+
+                if ($post["author_id"] !== Application::$app->user->id) {
+                    $response->setStatusCode(403);
+                    // return $this->render('error', ['message' => 'You are not authorized to delete this post.']);
+                    echo "You are not authorized to delete this post.";
+                    return;
+                }
+
+                $res = $blogModel->deleteBlogPost($postId);
                 return $response->redirect('/dashboard/posts');
             }
 

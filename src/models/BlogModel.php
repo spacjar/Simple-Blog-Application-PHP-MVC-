@@ -39,7 +39,7 @@
          * @return array The list of attributes.
          */
         public function attributes(): array {
-            return ["author_id", "title", "content", "created_at"];
+            return ["title", "content"];
         }
 
         /**
@@ -48,7 +48,10 @@
          * @return array The validation rules.
          */
         public function rules(): array {
-            return [];
+            return [
+                "title" => [self::RULE_REQUIRED],
+                "content" => [self::RULE_REQUIRED]
+            ];
         }
 
 

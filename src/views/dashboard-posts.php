@@ -30,8 +30,8 @@
                         <td data-label="Created at"><?php echo htmlspecialchars((new DateTime($post['created_at']))->format('F j, Y')); ?></td>
                         <td data-label="Actions">
                             <?php
-                                echo "<a href='/dashboard/posts/" . htmlspecialchars($post["id"]) . "/edit'>Edit</a>";
-                                echo "<form action='/dashboard/posts/" . htmlspecialchars($post["id"]) . "/delete' method='POST'><button>Delete</button></form>";
+                                echo "<a href='/dashboard/posts/edit/" . htmlspecialchars($post["id"]) . "' class='btn btn__secondary'>Edit</a>";
+                                echo "<form action='/dashboard/posts/delete/". htmlspecialchars($post["id"]) . "' method='POST'><button class='btn btn__secondary'>Delete</button></form>";
                             ?>
                         </td>
                     </tr>

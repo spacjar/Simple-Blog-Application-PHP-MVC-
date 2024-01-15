@@ -26,9 +26,9 @@
     $app->router->get('/dashboard/posts', [DashboardController::class, "dashboardPosts"]);
     $app->router->get('/dashboard/posts/new', [DashboardController::class, "dashboardPostNew"]);
     $app->router->post('/dashboard/posts/new', [DashboardController::class, "dashboardPostNew"]);
-    $app->router->get('/dashboard/posts/{post-id}/edit', [DashboardController::class, "dashboardPostEdit"]);
-    $app->router->post('/dashboard/posts/{post-id}/edit', [DashboardController::class, "dashboardPostEdit"]);
-    $app->router->post('/dashboard/posts/{post-id}/delete', [DashboardController::class, "dashboardPostDelete"]);
+    $app->router->get('/dashboard/posts/edit/{postId}', [DashboardController::class, "dashboardPostEdit"]);
+    $app->router->post('/dashboard/posts/edit/{postId}', [DashboardController::class, "dashboardPostEdit"]);
+    $app->router->post('/dashboard/posts/delete/{postId}', [DashboardController::class, "dashboardPostDelete"]);
 
     // Dashboard users routes
     // $app->router->get('/dashboard/users', "dashboard-users");
