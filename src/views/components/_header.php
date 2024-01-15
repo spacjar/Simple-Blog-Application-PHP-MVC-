@@ -8,12 +8,12 @@
                     <a href="/login" class="cta cta__secondary">Login</a>
                     <a href="/register" class="cta cta__primary">Register</a>
                 <?php else: ?>
-                    <a href="/dashboard">Dashboard</a>
+                    <!-- <a href="/dashboard">Dashboard</a> -->
                     <a href="/dashboard/posts">Your posts</a>
-                    <a href="/dashboard/posts/new">New post</a>
-                    <a href="/dashboard/users">Users</a>
+                    <!-- <a href="/dashboard/users">Users</a> -->
+                    <a href="/dashboard/posts/new" class="cta cta__primary">New post</a>
                     <form action="/logout" method="POST">
-                        <button type="submit" class="cta cta__primary">@<?php echo Application::$app->user->getDisplayName() ?> (Logout)</button>
+                        <button type="submit" class="cta cta__secondary">Logout (@<?php echo Application::$app->user->getDisplayName() ?>)</button>
                     </form>
                 <?php endif; ?>
             </div>
