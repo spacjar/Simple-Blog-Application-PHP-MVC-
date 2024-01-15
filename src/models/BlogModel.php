@@ -31,8 +31,7 @@
 
         public static function getAllBlogPosts($page, $postsPerPage) {
             $offset = ($page - 1) * $postsPerPage;
-            // $query = "SELECT * FROM posts ORDER BY created_at DESC LIMIT $postsPerPage OFFSET $offset";
-            $query = "SELECT * FROM posts ORDER BY id DESC LIMIT $postsPerPage OFFSET $offset";
+            $query = "SELECT * FROM posts WHERE deleted = 0 ORDER BY created_at DESC LIMIT $postsPerPage OFFSET $offset";
             $statement = self::prepare($query);
             $statement->execute();
             return $statement->fetchAll(PDO::FETCH_ASSOC);
@@ -41,6 +40,14 @@
         public static function getBlogPostById($id) {
             $blogPost = self::getById(["id" => $id]);
             return $blogPost;
+        }
+
+        public static function getBlogPostsByUserId($userId) {
+            $query = "SELECT * FROM posts WHERE author_id = :author_id ORDER BY created_at DESC";
+            $statement = self::prepare($query);
+            $statement->bindValue(":author_id", $userId);
+            $statement->execute();
+            return $statement->fetchAll(PDO::FETCH_ASSOC);
         }
 
         public function createBlogPost($authorId, $title, $content) {
@@ -54,6 +61,16 @@
             // } else {
             //     throw new Exception("Author with id $authorId does not exist.");
             // }
+        }
+
+        public function updateBlogPost($id, $title, $content) {
+            $blogPost = $this->update(["id" => $id, "title" => $title, "content" => $content, "updated_at" => date("Y-m-d H:i:s")]);
+            return $blogPost;
+        }
+
+        public function deleteBlogPost($id) {
+            $blogPost = $this->update(["id" => $id], ["deleted" => 1]);
+            return $blogPost;
         }
     }
 ?>
