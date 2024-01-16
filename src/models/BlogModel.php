@@ -10,10 +10,9 @@
         public int $author_id = 0;
         public string $title = "";
         public string $content = "";
-        public string $author = "";
         public string $created_at = "";
-        public $updated_at = "";
-        public $deleted = "";
+        public string $updated_at = "";
+        public int $deleted = 0;
 
         /**
          * Returns the primary key attribute name for the model.
@@ -62,7 +61,7 @@
          * @param int $postsPerPage The number of posts to display per page.
          * @return array An array of blog post data.
          */
-        public static function getAllBlogPosts($page, $postsPerPage) {
+        public static function getAllBlogPosts(int $page, int $postsPerPage) {
             try {
                 $offset = ($page - 1) * $postsPerPage;
                 $query = "SELECT * FROM posts WHERE deleted = 0 ORDER BY created_at DESC LIMIT $postsPerPage OFFSET $offset";
@@ -70,7 +69,26 @@
                 $statement->execute();
                 return $statement->fetchAll(PDO::FETCH_ASSOC);
             } catch(PDOException $e) {
+                throw new NotFoundException();
                 return [];
+            }
+        }
+
+
+        /**
+         * Retrieves the total count of all blog posts.
+         *
+         * @return array|false The total count of all blog posts, or an empty array if an error occurs.
+         */
+        public static function getAllBlogPostsCount() {
+            try {
+                $query = "SELECT COUNT(*) FROM posts WHERE deleted = 0";
+                $statement = self::prepare($query);
+                $statement->execute();
+                $result = $statement->fetch(PDO::FETCH_ASSOC);
+                return $result["COUNT(*)"];
+            } catch(PDOException $e) {
+                return 1;
             }
         }
 
@@ -81,7 +99,7 @@
          * @param int $postId The ID of the blog post.
          * @return array The blog post data as an associative array, or an empty array if the post is not found.
          */
-        public static function getBlogPostById($postId) {
+        public static function getBlogPostById(int $postId) {
             try {
                 $query = "SELECT * FROM posts WHERE id = :id AND deleted = 0";
                 $statement = self::prepare($query);
@@ -100,7 +118,7 @@
          * @param int $userId The ID of the user.
          * @return array An array of blog posts.
          */
-        public static function getBlogPostsByUserId($userId) {
+        public static function getBlogPostsByUserId(int $userId) {
             try {
                 if (Application::isAdmin()) {
                     $query = "SELECT * FROM posts ORDER BY created_at DESC";
@@ -127,7 +145,7 @@
          * @param string $createdAt The creation date of the blog post.
          * @return bool Returns true if the blog post was successfully created, false otherwise.
          */
-        public function createBlogPost($authorId, $title, $content, $createdAt) {
+        public function createBlogPost(int $authorId, string $title, string $content, string $createdAt) {
             try {
                 $query = "INSERT INTO posts (author_id, title, content, created_at) VALUES (:author_id, :title, :content, :created_at)";
                 $statement = self::prepare($query);
@@ -151,7 +169,7 @@
          * @param string $content The new content of the blog post.
          * @return bool Returns true if the update was successful, false otherwise.
          */
-        public function updateBlogPost($postId, $title, $content) {
+        public function updateBlogPost(int $postId, string $title, string $content) {
             try {
                 $query = "UPDATE posts SET title = :title, content = :content, updated_at = :updated_at WHERE id = :id";
                 $statement = self::prepare($query);
@@ -173,7 +191,7 @@
          * @param int $postId The ID of the blog post to delete.
          * @return bool Returns true if the blog post was successfully deleted, false otherwise.
          */
-        public function deleteBlogPost($postId) {
+        public function deleteBlogPost(int $postId) {
             try {
                 $query = "UPDATE posts SET deleted = 1 WHERE id = :id";
                 $statement = self::prepare($query);
