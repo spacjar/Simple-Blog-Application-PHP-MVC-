@@ -2,6 +2,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    padding: 16px 0;
 }
 
 .pagination .page-item {
@@ -14,4 +18,15 @@
 .pagination .page-item.active {
     background-color: #000;
     color: #fff;
+}
+
+@media (max-width: 768px) {
+    .pagination {
+        flex-direction: column;
+        gap: 4px
+    }
+    .pagination > * {
+        text-align: center;
+        width: 100%;
+    }
 }
