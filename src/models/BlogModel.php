@@ -4,6 +4,8 @@
     
     /**
      * Represents a blog post model in the application.
+     * 
+     * This class extends the Model class and is used to handle functionality involving blog posts.
      */
     class BlogModel extends DBModel {
         public int $id = 0;
@@ -59,17 +61,18 @@
          *
          * @param int $page The current page number.
          * @param int $postsPerPage The number of posts to display per page.
-         * @return array An array of blog post data.
+         * @return array Returns an array of blog posts.
          */
         public static function getAllBlogPosts(int $page, int $postsPerPage) {
             try {
                 $offset = ($page - 1) * $postsPerPage;
-                $query = "SELECT * FROM posts WHERE deleted = 0 ORDER BY created_at DESC LIMIT $postsPerPage OFFSET $offset";
+                $query = "SELECT * FROM posts WHERE deleted = 0 ORDER BY created_at DESC LIMIT :posts_per_page OFFSET :offset";
                 $statement = self::prepare($query);
+                $statement->bindValue(":posts_per_page", $postsPerPage, PDO::PARAM_INT);
+                $statement->bindValue(":offset", $offset, PDO::PARAM_INT);
                 $statement->execute();
                 return $statement->fetchAll(PDO::FETCH_ASSOC);
             } catch(PDOException $e) {
-                throw new NotFoundException();
                 return [];
             }
         }
@@ -78,17 +81,35 @@
         /**
          * Retrieves the total count of all blog posts.
          *
-         * @return array|false The total count of all blog posts, or an empty array if an error occurs.
+         * @param bool $isDashboard Determines whether the count is for the dashboard view.
+         * @return int The total count of blog posts.
          */
-        public static function getAllBlogPostsCount() {
+        public static function getAllBlogPostsCount(bool $isDashboard = false) {
             try {
-                $query = "SELECT COUNT(*) FROM posts WHERE deleted = 0";
+                $query = "SELECT COUNT(*) FROM posts";
+                $params = [];
+
+                if ($isDashboard) {
+                    if (!Application::isAdmin()) {
+                        // User on dashboard can see only his posts that are not deleted
+                        $query .= " WHERE author_id = :author_id AND deleted = 0";
+                        $params[":author_id"] = Application::$app->user->id;
+                    }
+                } else {
+                    // When not on dashboard, only non-deleted posts are visible
+                    $query .= " WHERE deleted = 0";
+                }
+
                 $statement = self::prepare($query);
+                foreach ($params as $key => $value) {
+                    $statement->bindValue($key, $value);
+                }
+
                 $statement->execute();
                 $result = $statement->fetch(PDO::FETCH_ASSOC);
                 return $result["COUNT(*)"];
             } catch(PDOException $e) {
-                return 1;
+                return 0;
             }
         }
 
@@ -116,18 +137,35 @@
          * Retrieves blog posts by user ID.
          *
          * @param int $userId The ID of the user.
-         * @return array An array of blog posts.
+         * @param int $page The page number.
+         * @param int $postsPerPage The number of posts per page.
+         * @return array The array of blog posts.
          */
-        public static function getBlogPostsByUserId(int $userId) {
+        public static function getBlogPostsByUserId(int $userId, int $page, int $postsPerPage) {        
             try {
-                if (Application::isAdmin()) {
-                    $query = "SELECT * FROM posts ORDER BY created_at DESC";
-                    $statement = self::prepare($query);
-                } else {
-                    $query = "SELECT * FROM posts WHERE author_id = :author_id AND deleted = 0 ORDER BY created_at DESC";
-                    $statement = self::prepare($query);
-                    $statement->bindValue(":author_id", $userId);
+                $offset = ($page - 1) * $postsPerPage;
+                $query = "SELECT * FROM posts";
+                $params = [
+                    ":posts_per_page" => $postsPerPage,
+                    ":offset" => $offset
+                ];
+
+                if (!Application::isAdmin()) {
+                    $query .= " WHERE author_id = :author_id AND deleted = 0";
+                    $params[":author_id"] = $userId;
                 }
+
+                $query .= " ORDER BY created_at DESC LIMIT :posts_per_page OFFSET :offset";
+                $statement = self::prepare($query);
+
+                foreach ($params as $key => $value) {
+                    if ($key === ":posts_per_page" || $key === ":offset") {
+                        $statement->bindValue($key, $value, PDO::PARAM_INT);
+                    } else {
+                        $statement->bindValue($key, $value);
+                    }
+                }
+
                 $statement->execute();
                 return $statement->fetchAll(PDO::FETCH_ASSOC);
             } catch(PDOException $e) {
@@ -142,17 +180,16 @@
          * @param int $authorId The ID of the author.
          * @param string $title The title of the blog post.
          * @param string $content The content of the blog post.
-         * @param string $createdAt The creation date of the blog post.
          * @return bool Returns true if the blog post was successfully created, false otherwise.
          */
-        public function createBlogPost(int $authorId, string $title, string $content, string $createdAt) {
+        public function createBlogPost(int $authorId, string $title, string $content) {
             try {
                 $query = "INSERT INTO posts (author_id, title, content, created_at) VALUES (:author_id, :title, :content, :created_at)";
                 $statement = self::prepare($query);
                 $statement->bindValue(":author_id", $authorId);
                 $statement->bindValue(":title", $title);
                 $statement->bindValue(":content", $content);
-                $statement->bindValue(":created_at", $createdAt);
+                $statement->bindValue(":created_at", date("Y-m-d H:i:s"));
                 $statement->execute();
                 return true;
             } catch(PDOException $e) {

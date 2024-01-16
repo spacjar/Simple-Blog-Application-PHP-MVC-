@@ -1,6 +1,10 @@
 <?php
     require_once __DIR__ . "/../core/UserBaseModel.php";
     
+    /**
+     * Represents a user model.
+     * Extends the UserBaseModel class.
+     */
     class UserModel extends UserBaseModel {
         public int $id = 0;
         public string $email = "";
@@ -31,12 +35,19 @@
             return [
                 "email" => [self::RULE_REQUIRED, self::RULE_EMAIL, [self::RULE_UNIQUE, "class" => self::class]],
                 "username" => [self::RULE_REQUIRED, [self::RULE_UNIQUE, "class" => self::class]],
-                // "password" => [self::RULE_REQUIRED, [self::RULE_MIN, "min" => 8], [self::RULE_MAX, "max" => 24]],
                 "password" => [self::RULE_REQUIRED],
                 "passwordConfirm" => [self::RULE_REQUIRED, [self::RULE_MATCH, "match" => "password"]]
             ];
         }
 
+        /**
+         * Creates a new user.
+         *
+         * This method hashes the user's password, sets the created_at and last_login timestamps,
+         * and then calls the parent's create method to save the user to the database.
+         *
+         * @return bool Returns true if the user was successfully created, false otherwise.
+         */
         public function create() {
             $this->password = password_hash($this->password, PASSWORD_DEFAULT);
             $this->created_at = date("Y-m-d H:i:s");
@@ -44,6 +55,11 @@
             return parent::create();
         }
 
+        /**
+         * Retrieves the display name of the user.
+         *
+         * @return string The display name of the user.
+         */
         public function getDisplayName(): string {
             return $this->username;
         }
