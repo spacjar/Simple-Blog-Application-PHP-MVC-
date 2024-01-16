@@ -30,7 +30,7 @@
                 $totalPosts = BlogModel::getAllBlogPostsCount();
                 $totalPages = ceil($totalPosts / $postsPerPage);
 
-                if ($page < 1 || $page > $totalPages) {
+                if ($page < 1 || ($page > $totalPages && $page !== 1)) {
                     throw new NotFoundException();
                 }
 
