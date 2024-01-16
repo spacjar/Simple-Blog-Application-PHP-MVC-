@@ -9,7 +9,7 @@
                     <a href="/register" class="cta cta__primary">Register</a>
                 <?php else: ?>
                     <!-- <a href="/dashboard">Dashboard</a> -->
-                    <a href="/dashboard/posts">Your posts</a>
+                    <a href="/dashboard/posts"><?php echo Application::isAdmin() ? "All posts" : "Your posts"; ?></a>
                     <!-- <a href="/dashboard/users">Users</a> -->
                     <a href="/dashboard/posts/new" class="cta cta__primary">New post</a>
                     <form action="/logout" method="POST">

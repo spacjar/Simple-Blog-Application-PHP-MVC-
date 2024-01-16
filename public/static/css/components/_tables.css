@@ -13,11 +13,22 @@ table {
     padding: 10px;
     text-align: center;
   }
+
   table th {
     font-size: 14px;
     letter-spacing: 1px;
     text-transform: uppercase;
+    background-color: rgba(0, 0, 0, 0.1);
+    color: #000;
   }
+
+  table td:not(:last-child) {
+    border-right: 1px solid #ddd;
+  }
+
+
+
+
   @media screen and (max-width: 600px) {
     table {
       border: 0;
