@@ -29,6 +29,11 @@
                 $postsPerPage = 10;
                 $totalPosts = BlogModel::getAllBlogPostsCount();
                 $totalPages = ceil($totalPosts / $postsPerPage);
+
+                if ($page < 1 || $page > $totalPages) {
+                    throw new NotFoundException();
+                }
+
                 $posts = BlogModel::getAllBlogPosts($page, $postsPerPage);
                 return $this->render('main', ['posts' => $posts, 'page' => $page, 'totalPages' => $totalPages]);
             } catch (Exception $e) {
