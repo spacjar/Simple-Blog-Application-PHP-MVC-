@@ -1,0 +1,12 @@
+.error {
+    height: 100%;
+}
+
+.error__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: inherit;
+    min-height: 100vh;
+}

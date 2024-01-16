@@ -11,6 +11,9 @@
 @import "./components/_tables.css";
 @import "./components/_pagination.css";
 
+/* Pages */
+@import "./pages/error.css";
+
 * {
   box-sizing: border-box;
   padding: 0;
