@@ -2,6 +2,8 @@
     require_once __DIR__ . "/../models/BlogModel.php";
     require_once __DIR__ . "/../core/Controller.php";
     require_once __DIR__ . "/../core/middlewares/AuthMiddleware.php";
+    require_once __DIR__ . "/../core/exceptions/NotFoundException.php";
+    require_once __DIR__ . "/../core/exceptions/ForbiddenException.php";
     require_once __DIR__ . "/../core/Request.php";
     require_once __DIR__ . "/../core/Response.php";
 
@@ -17,6 +19,7 @@
             $this->setLayout("dashboard");
         }
 
+        
         /**
          * Renders the dashboard posts page.
          *
@@ -41,79 +44,163 @@
             ]);
         }
 
-
+        
+        /**
+         * Handles the creation of a new blog post in the dashboard.
+         *
+         * @param Request $request The HTTP request object.
+         * @param Response $response The HTTP response object.
+         * @return mixed The rendered view (of an autocompleted form) or a redirect response.
+         * @throws Exception If an error occurs during the creation of the blog post.
+         */
         public function dashboardPostNew(Request $request, Response $response) {
-            $blogModel = new BlogModel();
+            try {
+                $blogModel = new BlogModel();
+                $blogModel->loadData($request->getBody());
 
-            if ($request->isPost()) {
-                try {
-                    $blogModel->loadData($request->getBody());
-                    if ($blogModel->validate()) {
-                        $date = new DateTime();
-                        $date = $date->format('Y-m-d H:i:s');
-                        $userId = Application::$app->user->id;
-                        $res = $blogModel->createBlogPost($userId, $blogModel->title, $blogModel->content, $date);
+                if ($request->isPost()) {
+                    // If the request method is POST
 
-                        if($res) {
-                            return $response->redirect('/dashboard/posts');
-                        }
+                    if (!$blogModel->validate()) {
+                        // If the blog model fails validation, render the new post view with the model
+                        return $this->render("dashboard-post-new", [
+                            'model' => $blogModel,
+                        ]);
                     }
-                } catch (Exception $e) {
-                    throw new NotFoundException();
+
+                    $date = new DateTime();
+                    $date = $date->format('Y-m-d H:i:s');
+                    $userId = Application::$app->user->id;
+
+                    $res = $blogModel->createBlogPost($userId, $blogModel->title, $blogModel->content, $date);
+
+                    if (!$res) {
+                        // If the blog post creation fails, throw an exception
+                        throw new Exception('Blog post creation failed!');
+                    }
+
+                    // Redirect to the dashboard posts page after successful creation
+                    return $response->redirect('/dashboard/posts');
                 }
 
-                return $this->render('dashboard-post-new', [
+                // Render the new post view with the model
+                return $this->render("dashboard-post-new", [
                     'model' => $blogModel,
                 ]);
+            } catch (Exception $e) {
+                // Catch any exceptions and throw a new exception with a custom error message
+                throw new Exception('Something went wrong: ' . $e->getMessage());
             }
-
-            return $this->render("dashboard-post-new", [
-                'model' => $blogModel
-            ]);
         }
 
 
+        /**
+         * Handles the edit of a blog post in the dashboard.
+         *
+         * @param Request $request The HTTP request object.
+         * @param Response $response The HTTP response object.
+         * @return mixed The rendered view (of an autocompleted form) or a redirect response.
+         * @throws Exception If an error occurs during the editing process.
+         */
         public function dashboardPostEdit(Request $request, Response $response) {
-            if($request->isPost()) {
-            // Check if the post exists
+            try {
+                $blogModel = new BlogModel();
+                $blogModel->loadData($request->getBody());
 
-            // Check if the user is the author of the post
-            
+                // Get the postId from the route parameters
+                $postId = $request->getRouteParam('postId') ?? null;
+                // Get the blog post by its ID
+                $post = $blogModel->getBlogPostById($postId) ?? null;
+                
+                if($request->isPost()) {
+                    // If the request method is POST
 
+                    if (!$blogModel->validate()) {
+                        // If the blog model fails validation, render the edit view with the model and post data
+                        return $this->render("dashboard-post-edit", [
+                            'model' => $blogModel,
+                            'post' => $post,
+                        ]);
+                    }
 
-                return $response->redirect('/dashboard/posts');
-            }
+                    if (!$post) {
+                        // If the blog post does not exist, throw an exception
+                        throw new Exception('Blog post does not exist!');
+                    }
 
-            return $this->render("dashboard-post-edit");
+                    if ($post["author_id"] !== Application::$app->user->id && !Application::isAdmin()) {
+                        // If the current user is not the author of the blog post, throw a ForbiddenException
+                        throw new ForbiddenException();
+                    }
+
+                    // Update the blog post with the new title and content
+                    $res = $blogModel->updateBlogPost($postId, $blogModel->title, $blogModel->content);
+
+                    if (!$res) {
+                        // If the update fails, throw an exception
+                        throw new Exception('Blog post edit failed!');
+                    }
+
+                    // Redirect to the dashboard posts page
+                    return $response->redirect('/dashboard/posts');
+                }
+
+                // Render the edit view with the model and post data
+                return $this->render("dashboard-post-edit", [
+                    'model' => $blogModel,
+                    'post' => $post,
+                ]);
+            } catch (Exception $e) {
+                // If an exception occurs, throw a new exception with a generic error message
+                throw new Exception('Something went wrong: ' . $e->getMessage());
+            }  
         }
 
 
+        /**
+         * Handles a deletion of a blog post.
+         *
+         * @param Request $request The HTTP request object.
+         * @param Response $response The HTTP response object.
+         * @return Response The updated HTTP response object.
+         * @throws Exception If an error occurs during the deletion process.
+         */
         public function dashboardPostDelete(Request $request, Response $response) {
-            if($request->isPost()) {
-                $blogModel = new BlogModel();
+            try {
+                // Check if the request method is POST
+                if($request->isPost()) {
+                    $blogModel = new BlogModel();
+                    $postId = $request->getRouteParam('postId') ?? null;
+                    $post = $blogModel->getBlogPostById($postId) ?? null;
 
-                $postId = $request->getRouteParam('postId') ?? null;
-                $post = $blogModel->getBlogPostById($postId) ?? null;
+                    // Check if the blog post exists
+                    if (!$post) {
+                        throw new Exception('Blog post does not exist!');
+                    }
 
-                if (!$post) {
-                    $response->setStatusCode(404);
-                    echo "Post not found.";
-                    return;
-                    // return $this->render('error', ['message' => 'Post not found.']);
+                    // Check if the current user has permission to delete the post
+                    if ($post["author_id"] !== Application::$app->user->id && !Application::isAdmin()) {
+                        throw new Exception('You do not have permission to delete this post!');
+                    }
+
+                    // Delete the blog post
+                    $res = $blogModel->deleteBlogPost($postId);
+
+                    // Check if the deletion was successful
+                    if (!$res) {
+                        throw new Exception('Blog post deletion failed!');
+                    }
+
+                    // Redirect the user to the dashboard posts page
+                    return $response->redirect('/dashboard/posts');
+                } else {
+                    // Throw a not found exception if the request method is not POST
+                    throw new NotFoundException();
                 }
-
-                if ($post["author_id"] !== Application::$app->user->id) {
-                    $response->setStatusCode(403);
-                    // return $this->render('error', ['message' => 'You are not authorized to delete this post.']);
-                    echo "You are not authorized to delete this post.";
-                    return;
-                }
-
-                $res = $blogModel->deleteBlogPost($postId);
-                return $response->redirect('/dashboard/posts');
+            } catch (Exception $e) {
+                // Throw an exception with a custom error message
+                throw new Exception('Something went wrong: ' . $e->getMessage());
             }
-
-            return;
         }
     }
 ?>
