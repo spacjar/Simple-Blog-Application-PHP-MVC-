@@ -12,6 +12,11 @@
             <div id="email-input-message-placeholder"><?php echo $model->getFirstError("content")?></div>
         </div>
         <div class="form__group">
+            <label for="content">Thumbnail</label>
+            <input type="file" accept="image/png, image/jpeg" name="thumbnail" id="thumbnail" class="form__input">
+            <div id="email-input-message-placeholder"><?php echo $model->getFirstError("thumbnail")?></div>
+        </div>
+        <div class="form__group">
             <button type="submit" class="cta cta__primary">Create</button>
         </div>
     </form>

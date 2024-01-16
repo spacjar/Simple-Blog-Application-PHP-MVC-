@@ -14,6 +14,7 @@
         public string $content = "";
         public string $created_at = "";
         public string $updated_at = "";
+        public string $thumbnail = "";
         public int $deleted = 0;
 
         /**
@@ -51,7 +52,8 @@
         public function rules(): array {
             return [
                 "title" => [self::RULE_REQUIRED],
-                "content" => [self::RULE_REQUIRED]
+                "content" => [self::RULE_REQUIRED],
+                // "thumbnail" => [self::RULE_REQUIRED]
             ];
         }
 
