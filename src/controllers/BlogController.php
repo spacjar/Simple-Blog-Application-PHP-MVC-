@@ -26,7 +26,7 @@
         {
             try {
                 $page = intval($request->getQueryParam('page')) ?: 1;
-                $postsPerPage = 10;
+                $postsPerPage = 9;
                 $totalPosts = BlogModel::getAllBlogPostsCount();
                 $totalPages = ceil($totalPosts / $postsPerPage);
 

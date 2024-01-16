@@ -8,42 +8,45 @@
 ?>
 
 <main>
-    <section class="blog-highlight">
-        <div class="container">
-        <?php
-            if (empty($posts)) {
-                echo "<p>No posts found</p>";
-            } else {
-                $firstPost = array_shift($posts);
-        ?>
-
-            <a class="blog-highlight-card" href="/post/<?php echo htmlspecialchars($firstPost["id"]); ?>">
-                <!-- Post thumbnail image -->
-                <img src="./assets/images/placeholder.png" alt="Blog post image" class="blog-highlight-card__image">
-                <div class="blog-highlight-card__content">
-                    <!-- Post details -->
-                    <div class="blog-highlight-card__detail">
-                        <p class="blog-highlight-card__category">Category</p>
-                        <h2 class="blog-highlight-card__header"><?php echo htmlspecialchars($firstPost["title"]); ?></h2>
-                        <p class="blog-highlight-card__description"><?php echo htmlspecialchars($firstPost["content"]); ?></p>
-                    </div>
-                    <!-- Post information -->
-                    <div class="blog-highlight-card__info">
-                        <img src="./assets/images/placeholder.png" alt="Blog post image" class="blog-highlight-card__avatar">
-                        <div>
-                            <p class="blog-highlight-card__author">@<?php echo htmlspecialchars($firstPost["author_id"]); ?></p>
-                            <!-- <p class="blog-highlight-card__date"><?php echo htmlspecialchars($firstPost["created_at"]); ?></p> -->
-                            <p class="blog-highlight-card__date"><?php echo htmlspecialchars((new DateTime($firstPost["created_at"]))->format('F j, Y')); ?></p>
+    <?php
+        if ($page === 1) {
+            $firstPost = $posts[0];
+    ?>
+        <section class="blog-highlight">
+            <div class="container">
+            <?php
+                if (empty($posts)) {
+                    echo "<h1>No posts found</h1>";
+                }
+            ?>
+                <a class="blog-highlight-card" href="/post/<?php echo htmlspecialchars($firstPost["id"]); ?>">
+                    <!-- Post thumbnail image -->
+                    <img src="./assets/images/placeholder.png" alt="Blog post image" class="blog-highlight-card__image">
+                    <div class="blog-highlight-card__content">
+                        <!-- Post details -->
+                        <div class="blog-highlight-card__detail">
+                            <p class="blog-highlight-card__category">Category</p>
+                            <h2 class="blog-highlight-card__header"><?php echo htmlspecialchars($firstPost["title"]); ?></h2>
+                            <p class="blog-highlight-card__description"><?php echo htmlspecialchars($firstPost["content"]); ?></p>
+                        </div>
+                        <!-- Post information -->
+                        <div class="blog-highlight-card__info">
+                            <img src="./assets/images/placeholder.png" alt="Blog post image" class="blog-highlight-card__avatar">
+                            <div>
+                                <p class="blog-highlight-card__author">@<?php echo htmlspecialchars($firstPost["author_id"]); ?></p>
+                                <!-- <p class="blog-highlight-card__date"><?php echo htmlspecialchars($firstPost["created_at"]); ?></p> -->
+                                <p class="blog-highlight-card__date"><?php echo htmlspecialchars((new DateTime($firstPost["created_at"]))->format('F j, Y')); ?></p>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </a>
-        </div>
+                </a>
+            </div>
 
+        </section>
         <?php
             }
         ?>
-    </section>
+    
     <section class="blog-posts">
         <div class="container">
             <?php
