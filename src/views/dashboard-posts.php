@@ -1,7 +1,12 @@
 <?php
+    require_once __DIR__ . "/components/_pagination.php";
+
     $posts = $posts ?? [];
+    $page = intval($page) ?: 1;
+    $totalPages = intval($totalPages) ?: 1;
 ?>
 
+<section>
 <div class="container">
     <h1 class="dashaboar__title">Your posts</h1>
 
@@ -45,3 +50,11 @@
         </tbody>
     </table>
 </div>
+</section>
+<section>
+    <div class="container">
+        <?php
+            generatePagination($page, $totalPages);
+        ?>
+    </div>
+</section>

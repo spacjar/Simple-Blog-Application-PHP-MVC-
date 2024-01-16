@@ -4,7 +4,7 @@
 
     $posts = $posts ?? [];
     $page = intval($page) ?: 1;
-    $totalPages = intval($totalPages) ?? 1;
+    $totalPages = intval($totalPages) ?: 1;
 ?>
 
 <main>
