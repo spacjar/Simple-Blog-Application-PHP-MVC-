@@ -14,6 +14,11 @@
      * It extends the base Controller class and handles the authentication middleware and layout settings.
      */
     class DashboardController extends Controller {
+
+        /**
+         * DashboardController constructor.
+         * Registers the AuthMiddleware for specific routes and sets the layout to "dashboard".
+         */
         public function __construct() {
             $this->registerMiddleware(new AuthMiddleware(['dashboardPosts', 'dashboardPostNew', 'dashboardPostEdit', 'dashboardPostDelete']));
             $this->setLayout("dashboard");
@@ -29,19 +34,20 @@
          * @throws NotFoundException If an error occurs while retrieving the blog posts it renders custom not found page.
          */
         public function dashboardPosts(Request $request, Response $response) {
-            $posts = [];
-            
             try {
                 $blogModel = new BlogModel();
-                $posts = $blogModel->getBlogPostsByUserId(Application::$app->user->id);
+
+                $page = intval($request->getQueryParam('page')) ?: 1;
+                $postsPerPage = 10;
+                $totalPosts = BlogModel::getAllBlogPostsCount(true);
+                $totalPages = ceil($totalPosts / $postsPerPage);
+
+                $posts = $blogModel->getBlogPostsByUserId(Application::$app->user->id, $page, $postsPerPage) ?? [];
+
+                return $this->render("dashboard-posts", ['model' => $blogModel, 'posts' => $posts, 'page' => $page, 'totalPages' => $totalPages]);
             } catch (Exception $e) {
                 throw new NotFoundException();
             }
-
-            return $this->render("dashboard-posts", [
-                'model' => $blogModel,
-                'posts' => $posts,
-            ]);
         }
 
         
@@ -68,11 +74,9 @@
                         ]);
                     }
 
-                    $date = new DateTime();
-                    $date = $date->format('Y-m-d H:i:s');
                     $userId = Application::$app->user->id;
 
-                    $res = $blogModel->createBlogPost($userId, $blogModel->title, $blogModel->content, $date);
+                    $res = $blogModel->createBlogPost($userId, $blogModel->title, $blogModel->content);
 
                     if (!$res) {
                         // If the blog post creation fails, throw an exception

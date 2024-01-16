@@ -34,7 +34,7 @@
                     throw new NotFoundException();
                 }
 
-                $posts = BlogModel::getAllBlogPosts($page, $postsPerPage);
+                $posts = BlogModel::getAllBlogPosts($page, $postsPerPage) ?? [];
                 return $this->render('main', ['posts' => $posts, 'page' => $page, 'totalPages' => $totalPages]);
             } catch (Exception $e) {
                 throw new NotFoundException();
