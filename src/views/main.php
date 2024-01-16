@@ -1,5 +1,10 @@
 <?php
     require_once __DIR__ . "/components/_post.php";
+    require_once __DIR__ . "/components/_pagination.php";
+
+    $posts = $posts ?? [];
+    $page = intval($page) ?: 1;
+    $totalPages = intval($totalPages) ?? 1;
 ?>
 
 <main>
@@ -48,7 +53,6 @@
                     foreach ($posts as $post) {
                         echo generateBlogPostCard(
                             $post["id"],
-                            // $post["category"],
                             "Category",
                             $post["title"],
                             $post["content"],
@@ -62,8 +66,11 @@
             ?>
         </div>
     </section>
-    <div class="pagination">
-        <a href="/?page=<?= $page - 1 ?>" class="page-item">Previous</a>
-        <a href="/?page=<?= $page + 1 ?>" class="page-item">Next</a>
-    </div>
+    <section>
+        <div class="container">
+            <?php
+                generatePagination($page, $totalPages);
+            ?>
+        </div>
+    </section>
 </main>
