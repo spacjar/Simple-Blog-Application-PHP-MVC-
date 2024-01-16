@@ -7,6 +7,11 @@
     
     class AuthController extends Controller {
         public function handleLogin(Request $request, Response $response) {
+            if(!Application::isGuest()) {
+                $response->redirect("/dashboard/posts");
+                return;
+            }
+            
             $loginModel = new LoginModel();
 
             if($request->isPost()) {
@@ -30,6 +35,11 @@
         }
 
         public function handleRegister(Request $request, Response $response) {
+            if(!Application::isGuest()) {
+                $response->redirect("/dashboard/posts");
+                return;
+            }
+
             $user = new UserModel();
 
             if($request->isPost()) {
