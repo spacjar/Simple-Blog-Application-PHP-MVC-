@@ -71,7 +71,7 @@
                     if ($image && $image['name']) {                        
                         $blogModel->thumbnail = File::uploadImage($image);
                         if(!$blogModel->thumbnail) {
-                            $blogModel->addError('thumbnail', 'Invalid image type!');
+                            $blogModel->addError('thumbnail', 'Invalid image or image type!');
                             return $this->render("dashboard-post-new", [
                                 'model' => $blogModel,
                             ]);
@@ -130,6 +130,19 @@
                 
                 if($request->isPost()) {
                     // If the request method is POST
+                    $image = $request->getImage('thumbnail');
+
+                    if ($image && $image['name']) {                        
+                        $blogModel->thumbnail = File::uploadImage($image);
+                        if(!$blogModel->thumbnail) {
+                            $blogModel->addError('thumbnail', 'Invalid image or image type!');
+                            return $this->render("dashboard-post-new", [
+                                'model' => $blogModel,
+                            ]);
+                        }
+                    } else {
+                        $blogModel->thumbnail = null;
+                    }
 
                     if (!$blogModel->validate()) {
                         // If the blog model fails validation, render the edit view with the model and post data
@@ -150,7 +163,7 @@
                     }
 
                     // Update the blog post with the new title and content
-                    $res = $blogModel->updateBlogPost($postId, $blogModel->title, $blogModel->content);
+                    $res = $blogModel->updateBlogPost($postId, $blogModel->title, $blogModel->content, $blogModel->thumbnail);
 
                     if (!$res) {
                         // If the update fails, throw an exception

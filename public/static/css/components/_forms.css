@@ -18,3 +18,7 @@
     color: var(--black-500);
 }
 
+.error-message {
+    color: red;
+}
+

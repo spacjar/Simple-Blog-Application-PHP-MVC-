@@ -217,10 +217,16 @@
          * @param string $content The new content of the blog post.
          * @return bool Returns true if the update was successful, false otherwise.
          */
-        public function updateBlogPost(int $postId, string $title, string $content) {
+        public function updateBlogPost(int $postId, string $title, string $content, ?string $thumbnail = null) {
             try {
-                $query = "UPDATE posts SET title = :title, content = :content, updated_at = :updated_at WHERE id = :id";
-                $statement = self::prepare($query);
+                if ($thumbnail) {
+                    $query = "UPDATE posts SET title = :title, content = :content, updated_at = :updated_at, thumbnail_uri = :thumbnail WHERE id = :id";
+                    $statement = self::prepare($query);
+                    $statement->bindValue(":thumbnail", $thumbnail);
+                } else {
+                    $query = "UPDATE posts SET title = :title, content = :content, updated_at = :updated_at WHERE id = :id";
+                    $statement = self::prepare($query);
+                }
                 $statement->bindValue(":id", $postId);
                 $statement->bindValue(":title", $title);
                 $statement->bindValue(":content", $content);
