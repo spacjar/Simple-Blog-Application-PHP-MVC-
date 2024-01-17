@@ -1,19 +1,49 @@
 <?php
+    /**
+     * This class represents a database model that extends the base Model class.
+     * It provides abstract methods for defining table name, attributes, and primary key.
+     * It also provides methods for CRUD operations such as create, read, update, and delete.
+     */
     require_once __DIR__ . "/../core/Application.php";
     require_once __DIR__ . "/Model.php";
 
     abstract class DBModel extends Model {
+        /**
+         * Returns the name of the database table associated with the model.
+         *
+         * @return string The table name.
+         */
         abstract public static function tableName(): string;
 
+        /**
+         * Returns an array of attribute names for the model.
+         *
+         * @return array The attribute names.
+         */
         abstract public function attributes(): array;
 
+        /**
+         * Returns the primary key attribute name for the model.
+         *
+         * @return string The primary key attribute name.
+         */
         abstract public static function primaryKey(): string;
 
+        /**
+         * Prepares a SQL statement for execution.
+         *
+         * @param string $sql The SQL statement to prepare.
+         * @return PDOStatement|false The prepared statement or false on failure.
+         */
         public static function prepare($sql) {
             return Application::$app->db->prepare($sql);
         }
 
-        // CRUD operations
+        /**
+         * Creates a new record in the database table.
+         *
+         * @return bool True if the record is created successfully, false otherwise.
+         */
         public function create() {
             try {
                 $tableName = $this->tableName();
@@ -33,6 +63,12 @@
             }
         }
 
+        /**
+         * Retrieves all records from the database table.
+         *
+         * @param string $orderBy Optional. The column to order the records by.
+         * @return array|false An array of records or false on failure.
+         */
         public static function getAll($orderBy = "") {
             try {
                 $tableName = static::tableName();
@@ -51,6 +87,12 @@
             }
         }
 
+        /**
+         * Retrieves a record from the database table by its primary key.
+         *
+         * @param array $where An associative array of column-value pairs for the WHERE clause.
+         * @return object|false The retrieved record as an object or false on failure.
+         */
         public static function getById($where) {
             try {      
                 $tableName = static::tableName();
@@ -68,6 +110,13 @@
             }
         }
 
+        /**
+         * Updates a record in the database table by its primary key.
+         *
+         * @param mixed $id The value of the primary key.
+         * @param string $idColumn Optional. The name of the primary key column.
+         * @return bool True if the record is updated successfully, false otherwise.
+         */
         public function updateById($id, $idColumn = "id") {
             try {
                 $tableName = $this->tableName();
@@ -87,6 +136,13 @@
             }
         }
 
+        /**
+         * Deletes a record from the database table by its primary key.
+         *
+         * @param mixed $id The value of the primary key.
+         * @param string $idColumn Optional. The name of the primary key column.
+         * @return bool True if the record is deleted successfully, false otherwise.
+         */
         public function deleteById($id, $idColumn = "id") {
             try {
                 $tableName = $this->tableName();

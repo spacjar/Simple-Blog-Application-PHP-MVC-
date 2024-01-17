@@ -215,6 +215,7 @@
          * @param int $postId The ID of the blog post to update.
          * @param string $title The new title of the blog post.
          * @param string $content The new content of the blog post.
+         * @param string|null $thumbnail The URI of the thumbnail image (optional).
          * @return bool Returns true if the update was successful, false otherwise.
          */
         public function updateBlogPost(int $postId, string $title, string $content, ?string $thumbnail = null) {

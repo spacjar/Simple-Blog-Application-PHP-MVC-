@@ -1,7 +1,17 @@
 <?php
+    /**
+     * Class Database
+     * 
+     * Represents a database connection and provides methods for interacting with the database.
+     */
     class Database {
         public PDO $pdo;
 
+        /**
+         * Database constructor.
+         * 
+         * @param array $dbConfig The database configuration options.
+         */
         public function __construct(array $dbConfig = []) {
             $db_host = $dbConfig['host'] ?? '';
             $db_name = $dbConfig['name'] ?? '';
@@ -18,6 +28,12 @@
             }
         }
 
+        /**
+         * Prepares an SQL statement for execution.
+         * 
+         * @param string $sql The SQL statement to prepare.
+         * @return PDOStatement The prepared statement object.
+         */
         public function prepare($sql): PDOStatement
         {
             return $this->pdo->prepare($sql);

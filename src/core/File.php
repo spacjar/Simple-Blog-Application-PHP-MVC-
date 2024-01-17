@@ -1,5 +1,14 @@
 <?php
+    /**
+     * The File class provides methods for handling files.
+     */
     class File {
+        /**
+         * Uploads an image file to the server.
+         *
+         * @param array $image The image file to be uploaded.
+         * @return string|false The unique file name if the upload is successful, false otherwise.
+         */
         public static function uploadImage($image) {
             // Generate a unique file name
             $fileName = time() . '_' . rand() . '.' . $image['name'];
