@@ -1,6 +1,7 @@
 <?php
     require_once __DIR__ . "/components/_post.php";
     require_once __DIR__ . "/components/_pagination.php";
+    require_once __DIR__ . "../../utils/text-util.php";
 
     $posts = $posts ?? [];
     $page = intval($page) ?: 1;
@@ -19,8 +20,8 @@
                         <!-- Post details -->
                         <div class="blog-highlight-card__detail">
                             <p class="blog-highlight-card__category">Category</p>
-                            <h2 class="blog-highlight-card__header"><?php echo htmlspecialchars($firstPost["title"], ENT_QUOTES, 'UTF-8'); ?></h2>
-                            <p class="blog-highlight-card__description"><?php echo htmlspecialchars($firstPost["content"], ENT_QUOTES, 'UTF-8'); ?></p>
+                            <h2 class="blog-highlight-card__header"><?php echo htmlspecialchars(truncateString($firstPost["title"], 100), ENT_QUOTES, 'UTF-8'); ?></h2>
+                            <p class="blog-highlight-card__description"><?php echo htmlspecialchars(truncateString($firstPost["content"], 200), ENT_QUOTES, 'UTF-8'); ?></p>
                         </div>
                         <!-- Post information -->
                         <div class="blog-highlight-card__info">
@@ -45,8 +46,8 @@
                     <?php echo generateBlogPostCard(
                         $post["id"],
                         "Category",
-                        $post["title"],
-                        $post["content"],
+                        truncateString($post["title"], 100),
+                        truncateString($post["content"], 200),
                         $post["author_id"],
                         $post["created_at"],
                         $post["thumbnail_uri"],

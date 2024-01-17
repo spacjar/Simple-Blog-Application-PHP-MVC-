@@ -11,9 +11,10 @@
     align-items: center;
 }
 
-.blog-detail .container > * {
+.blog-detail .container > *:not(img) {
     width: 100%;
     max-width: 768px !important;
+    margin: 0 auto;
 }
 
 /* ------ Blog Info ------ */
@@ -53,6 +54,7 @@
 
 /* ------ Blog Thumbnail ------ */
 .blog-detail-thumbnail {
+    width: 100%;
     padding: 0 64px;
     margin-top: 40px;
     margin-bottom: 40px;
@@ -61,11 +63,15 @@
 .blog-detail-thumbnail img {
     height: 600px;
     width: 100%;
+    object-fit: cover;
 }
 
 @media all and (max-width: 768px) {
     .blog-detail-thumbnail {
         padding: 0;
+    }
+    .blog-detail-thumbnail img {
+        height: 300px;
     }
 }
 
