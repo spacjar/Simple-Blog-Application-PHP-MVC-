@@ -96,7 +96,7 @@
                     }
 
                     // Redirect to the dashboard posts page after successful creation
-                    return $response->redirect('/dashboard/posts');
+                    return $response->redirect('dashboard/posts');
                 }
 
                 // Render the new post view with the model
@@ -171,7 +171,7 @@
                     }
 
                     // Redirect to the dashboard posts page
-                    return $response->redirect('/dashboard/posts');
+                    return $response->redirect('dashboard/posts');
                 }
 
                 // Render the edit view with the model and post data
@@ -221,7 +221,7 @@
                     }
 
                     // Redirect the user to the dashboard posts page
-                    return $response->redirect('/dashboard/posts');
+                    return $response->redirect('dashboard/posts');
                 } else {
                     // Throw a not found exception if the request method is not POST
                     throw new NotFoundException();

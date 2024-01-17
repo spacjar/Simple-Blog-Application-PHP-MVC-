@@ -23,7 +23,7 @@
          */
         public function handleLogin(Request $request, Response $response) {
             if(!Application::isGuest()) {
-                $response->redirect("/dashboard/posts");
+                $response->redirect("dashboard/posts");
                 return;
             }
             
@@ -33,7 +33,7 @@
                 $loginModel->loadData($request->getBody());
 
                 if($loginModel->validate() && $loginModel->login()) {
-                    $response->redirect("/dashboard/posts");
+                    $response->redirect("dashboard/posts");
                     return;
                 }
 
@@ -60,7 +60,7 @@
         public function handleRegister(Request $request, Response $response) {
             // Check if user is already logged in
             if(!Application::isGuest()) {
-                $response->redirect("/dashboard/posts");
+                $response->redirect("dashboard/posts");
                 return;
             }
 
@@ -72,7 +72,7 @@
                 // Validate user data and create new user
                 if($user->validate() && $user->create()) {
                     Application::$app->session->setFlash("success", "Thanks for registering");
-                    $response->redirect("/login");
+                    $response->redirect("login");
                 }
 
                 $this->setLayout("register");
@@ -98,7 +98,7 @@
         public function handleLogout(Request $request, Response $response) {
             if($request->isPost()) {
                 Application::$app->logout();
-                $response->redirect("/");
+                $response->redirect("./");
             }
         }
     }

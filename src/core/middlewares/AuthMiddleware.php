@@ -16,12 +16,12 @@
                 }
             } else if(Application::$app->user->banned) {
                 // TODO : Add flash message
-                Application::$app->response->redirect("/?banned=true");
+                Application::$app->response->redirect("./?banned=true");
                 Application::$app->logout();
                 return;
             } else if(Application::$app->user->deleted) {
                 // TODO : Add flash message
-                Application::$app->response->redirect("/?deleted=true");
+                Application::$app->response->redirect("./?deleted=true");
                 Application::$app->logout();
                 return;
             }
