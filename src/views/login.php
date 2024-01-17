@@ -12,7 +12,7 @@
             </div>
             <div class="auth-form__group">
                 <label for="password-input" class="text-regular">Password (required)</label>
-                <input type="password" id="password-input" name="password" autocomplete="password" class="input <?php echo $model->hasError('password') ? 'is-invalid' : '' ?>" placeholder="Password" value="<?php echo htmlspecialchars($model->password, ENT_QUOTES, 'UTF-8');?>">
+                <input type="password" id="password-input" name="password" autocomplete="current-password" class="input <?php echo $model->hasError('password') ? 'is-invalid' : '' ?>" placeholder="Password" value="<?php echo htmlspecialchars($model->password, ENT_QUOTES, 'UTF-8');?>">
                 <div id="password-input-message-placeholder" class="error-message"><?php echo $model->getFirstError("password")?></div>
             </div>
             <div class="auth-form__group">
