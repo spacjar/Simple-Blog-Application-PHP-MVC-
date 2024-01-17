@@ -20,7 +20,7 @@
                         <!-- Post details -->
                         <div class="blog-highlight-card__detail">
                             <p class="blog-highlight-card__category">Category</p>
-                            <h2 class="blog-highlight-card__header"><?php echo htmlspecialchars(truncateString($firstPost["title"], 100), ENT_QUOTES, 'UTF-8'); ?></h2>
+                            <h1 class="blog-highlight-card__header"><?php echo htmlspecialchars(truncateString($firstPost["title"], 100), ENT_QUOTES, 'UTF-8'); ?></h1>
                             <p class="blog-highlight-card__description"><?php echo htmlspecialchars(truncateString($firstPost["content"], 200), ENT_QUOTES, 'UTF-8'); ?></p>
                         </div>
                         <!-- Post information -->
@@ -40,7 +40,7 @@
     <section class="blog-posts">
         <div class="container">
             <?php if (empty($posts)): ?>
-                <p>No more posts found.</p>
+                <h1>No more posts found.</h1>
             <?php else: ?>
                 <?php foreach ($posts as $post): ?>
                     <?php echo generateBlogPostCard(
