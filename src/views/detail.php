@@ -7,7 +7,7 @@
 <main class="blog-detail">
     <div class="blog-detail-header">
         <div class="container">
-            <h1 class="heading-1"><?php echo htmlspecialchars($postDetail['title']); ?></h1>
+            <h1 class="heading-1"><?php echo htmlspecialchars($postDetail['title'], ENT_QUOTES, 'UTF-8'); ?></h1>
         </div>
     </div>
     <!-- <div class="blog-detail-information">
@@ -29,7 +29,7 @@
     <div class="blog-detail-content">
         <div class="container">
             <div class="blog-detail-content__section">
-                <?php echo htmlspecialchars($postDetail['content']); ?>
+                <?php echo htmlspecialchars($postDetail['content'], ENT_QUOTES, 'UTF-8'); ?>
                 <!-- <h2 class="blog-detail-content__heading heading-4">Introduction</h2>
                 <p class="blog-detail-content__text text-regular">Mi tincidunt elit, id quisque ligula ac diam, amet. Vel etiam suspendisse morbi eleifend faucibus eget vestibulum felis. Dictum quis montes, sit sit. Tellus aliquam enim urna, etiam. Mauris posuere vulputate arcu amet, vitae nisi, tellus tincidunt. At feugiat sapien varius id.</p>
                 <p class="blog-detail-content__text text-regular">Eget quis mi enim, leo lacinia pharetra, semper. Eget in volutpat mollis at volutpat lectus velit, sed auctor. Porttitor fames arcu quis fusce augue enim. Quis at habitant diam at. Suscipit tristique risus, at donec. In turpis vel et quam imperdiet. Ipsum molestie aliquet sodales id est ac volutpat.</p>

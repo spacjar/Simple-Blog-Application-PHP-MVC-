@@ -12,22 +12,22 @@
         <?php $firstPost = $posts[0]; ?>
         <section class="blog-highlight">
             <div class="container">
-                <a class="blog-highlight-card" href="/post/<?php echo htmlspecialchars($firstPost["id"]); ?>">
+                <a class="blog-highlight-card" href="/post/<?php echo htmlspecialchars($firstPost["id"], ENT_QUOTES, 'UTF-8'); ?>">
                     <!-- Post thumbnail image -->
                     <img src="./assets/images/placeholder.png" alt="Blog post image" class="blog-highlight-card__image">
                     <div class="blog-highlight-card__content">
                         <!-- Post details -->
                         <div class="blog-highlight-card__detail">
                             <p class="blog-highlight-card__category">Category</p>
-                            <h2 class="blog-highlight-card__header"><?php echo htmlspecialchars($firstPost["title"]); ?></h2>
-                            <p class="blog-highlight-card__description"><?php echo htmlspecialchars($firstPost["content"]); ?></p>
+                            <h2 class="blog-highlight-card__header"><?php echo htmlspecialchars($firstPost["title"], ENT_QUOTES, 'UTF-8'); ?></h2>
+                            <p class="blog-highlight-card__description"><?php echo htmlspecialchars($firstPost["content"], ENT_QUOTES, 'UTF-8'); ?></p>
                         </div>
                         <!-- Post information -->
                         <div class="blog-highlight-card__info">
                             <img src="./assets/images/placeholder.png" alt="Blog post image" class="blog-highlight-card__avatar">
                             <div>
-                                <p class="blog-highlight-card__author">@<?php echo htmlspecialchars($firstPost["author_id"]); ?></p>
-                                <p class="blog-highlight-card__date"><?php echo htmlspecialchars((new DateTime($firstPost["created_at"]))->format('F j, Y')); ?></p>
+                                <p class="blog-highlight-card__author">@<?php echo htmlspecialchars($firstPost["author_id"], ENT_QUOTES, 'UTF-8'); ?></p>
+                                <p class="blog-highlight-card__date"><?php echo htmlspecialchars((new DateTime($firstPost["created_at"]))->format('F j, Y'), ENT_QUOTES, 'UTF-8'); ?></p>
                             </div>
                         </div>
                     </div>
