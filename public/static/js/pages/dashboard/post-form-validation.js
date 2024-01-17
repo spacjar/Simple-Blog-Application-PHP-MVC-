@@ -1,4 +1,4 @@
-import { checkInputEmpty, chackEmailValidity } from '../../utils/input-validation-utils.js';
+import { checkInputEmpty } from '../../utils/input-validation-utils.js';
 
 // Form
 const form = document.getElementById('post__form');
