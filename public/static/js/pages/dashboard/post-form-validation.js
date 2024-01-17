@@ -11,10 +11,6 @@ const titleInputMessage = document.getElementById('title-input-message-placehold
 const contentInput = document.getElementById('content-input');
 const contentInputMessage = document.getElementById('content-input-message-placeholder');
 
-// Thumbnail input
-const thumbnailInput = document.getElementById('thumbnail-input');
-const thumbnailInputMessage = document.getElementById('thumbnail-input-message-placeholder');
-
 
 /**
  * Checks if the title is empty and updates the UI accordingly.
@@ -25,12 +21,12 @@ const checkTitleHandler = (title) => {
     const isEmpty = checkInputEmpty(title);
 
     if(isEmpty) {
-        titleInput.classList.add('error');
+        titleInput.classList.add('is-invalid');
         titleInputMessage.innerHTML = 'Title is required!';
     }
 
     if(!isEmpty) {
-        titleInput.classList.remove('error');
+        titleInput.classList.remove('is-invalid');
         titleInputMessage.innerHTML = '';
     }
 
@@ -55,12 +51,12 @@ const checkContentHandler = (content) => {
     const isEmpty = checkInputEmpty(content);
 
     if(isEmpty) {
-        contentInput.classList.add('error');
-        contentInputMessage.innerHTML = 'Title is required!';
+        contentInput.classList.add('is-invalid');
+        contentInputMessage.innerHTML = 'Content is required!';
     }
 
     if(!isEmpty) {
-        contentInput.classList.remove('error');
+        contentInput.classList.remove('is-invalid');
         contentInputMessage.innerHTML = '';
     }
 
@@ -76,39 +72,9 @@ contentInput.addEventListener('input', (event) => {
 });
 
 
-/**
- * Checks if the thumbnail is empty and updates the UI accordingly.
- * @param {string} thumbnail - The thumbnail to be checked.
- * @returns {boolean} - Returns true if the thumbnail is empty, false otherwise.
- */
-const checkThumbnailtHandler = (thumbnail) => {
-    const isEmpty = checkInputEmpty(thumbnail);
-
-    if(isEmpty) {
-        thumbnailInput.classList.add('error');
-        thumbnailInputMessage.innerHTML = 'Title is required!';
-    }
-
-    if(!isEmpty) {
-        thumbnailInput.classList.remove('error');
-        thumbnailInputMessage.innerHTML = '';
-    }
-
-    return isEmpty;
-};
-
-// Check thumbnail validity (after 1 second of inactivity)
-let thumbnailTimeout = null;
-thumbnailInput.addEventListener('input', (event) => {
-    clearTimeout(thumbnailTimeout);
-
-    thumbnailTimeout = setTimeout(() => checkThumbnailtHandler(event.target.value), 1000);
-});
-
-
 // Form submission handler
 form.addEventListener('submit', (event) => {
-    if(!checkTitleHandler(titleInput.value) || !checkContentHandler(contentInput.value) || !checkThumbnailtHandler(thumbnailInput.value)) {
+    if(checkTitleHandler(titleInput.value) || checkContentHandler(contentInput.value)) {
         console.log("Prevent");
         event.preventDefault();
     }
