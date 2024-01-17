@@ -68,7 +68,7 @@
                 if ($request->isPost()) {
                     $image = $request->getImage('thumbnail');
 
-                    if ($image && $image['error'] === UPLOAD_ERR_OK) {                        
+                    if ($image && $image['name']) {                        
                         $blogModel->thumbnail = File::uploadImage($image);
                         if(!$blogModel->thumbnail) {
                             $blogModel->addError('thumbnail', 'Invalid image type!');
