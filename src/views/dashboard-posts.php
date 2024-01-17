@@ -15,7 +15,11 @@
                 <tr>
                     <th>ID</th>
                     <th>Title</th>
-                    <!-- <th>Author</th> -->
+                    <?php
+                        if (Application::isAdmin()) {
+                            echo "<th>Author</th>";
+                        }
+                    ?>
                     <th>Created at</th>
                     <th>Actions</th>
                 </tr>
@@ -23,15 +27,19 @@
             <tbody>
                 <?php if (empty($posts)): ?>
                     <tr>
-                        <!-- <td colspan="5">No posts found.</td> -->
-                        <td colspan="4">No posts found.</td>
+                        <td colspan="<?php echo Application::isAdmin() ? '5' : '4'; ?>">No posts found.</td>
                     </tr>
                 <?php else: ?>
                     <?php foreach ($posts as $post): ?>
                         <tr>
                             <td data-label="ID"><?php echo htmlspecialchars($post['id'], ENT_QUOTES, 'UTF-8'); ?></td>
                             <td data-label="Title"><?php echo htmlspecialchars($post['title'], ENT_QUOTES, 'UTF-8'); ?></td>
-                            <!-- <td data-label="Author">@<?php echo htmlspecialchars($post['author_id'], ENT_QUOTES, 'UTF-8'); ?></td> -->
+                            <?php
+                                if (Application::isAdmin()) {
+                                    echo '<td data-label="Author">@' . htmlspecialchars($post['author_id'], ENT_QUOTES, 'UTF-8') . '</td>';
+                                }
+                            ?>
+
                             <td data-label="Created at"><?php echo htmlspecialchars((new DateTime($post['created_at']))->format('F j, Y'), ENT_QUOTES, 'UTF-8'); ?></td>
                             <td data-label="Actions">
                                 <?php
