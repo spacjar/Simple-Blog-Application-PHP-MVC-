@@ -14,7 +14,7 @@
             <div class="container">
                 <a class="blog-highlight-card" href="/post/<?php echo htmlspecialchars($firstPost["id"], ENT_QUOTES, 'UTF-8'); ?>">
                     <!-- Post thumbnail image -->
-                    <img src="./assets/images/placeholder.png" alt="Blog post image" class="blog-highlight-card__image">
+                    <img src="<?php echo $firstPost["thumbnail_uri"] ? htmlspecialchars($firstPost["thumbnail_uri"], ENT_QUOTES, 'UTF-8') : './assets/images/placeholder.png' ?>" alt="Blog post image" class="blog-highlight-card__image">
                     <div class="blog-highlight-card__content">
                         <!-- Post details -->
                         <div class="blog-highlight-card__detail">
@@ -49,8 +49,7 @@
                         $post["content"],
                         $post["author_id"],
                         $post["created_at"],
-                        // $post["image"],
-                        // $post["avatar"]
+                        $post["thumbnail_uri"],
                     ); ?>
                 <?php endforeach; ?>
             <?php endif; ?>

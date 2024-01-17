@@ -14,7 +14,7 @@
         public string $content = "";
         public string $created_at = "";
         public string $updated_at = "";
-        public string $thumbnail = "";
+        public ?string $thumbnail = "";
         public int $deleted = 0;
 
         /**
@@ -176,18 +176,27 @@
         }
 
 
+
         /**
          * Creates a new blog post.
          *
          * @param int $authorId The ID of the author.
          * @param string $title The title of the blog post.
          * @param string $content The content of the blog post.
-         * @return bool Returns true if the blog post was successfully created, false otherwise.
+         * @param string|null $thumbnail The URI of the thumbnail image (optional).
+         * @return bool Returns true if the blog post was created successfully, false otherwise.
          */
-        public function createBlogPost(int $authorId, string $title, string $content) {
+        public function createBlogPost(int $authorId, string $title, string $content, ?string $thumbnail = null) {
             try {
-                $query = "INSERT INTO posts (author_id, title, content, created_at) VALUES (:author_id, :title, :content, :created_at)";
-                $statement = self::prepare($query);
+                $query = "";
+                if ($thumbnail) {
+                    $query = "INSERT INTO posts (author_id, title, content, created_at, thumbnail_uri) VALUES (:author_id, :title, :content, :created_at, :thumbnail)";
+                    $statement = self::prepare($query);
+                    $statement->bindValue(":thumbnail", $thumbnail);
+                } else {
+                    $query = "INSERT INTO posts (author_id, title, content, created_at) VALUES (:author_id, :title, :content, :created_at)";
+                    $statement = self::prepare($query);
+                }  
                 $statement->bindValue(":author_id", $authorId);
                 $statement->bindValue(":title", $title);
                 $statement->bindValue(":content", $content);

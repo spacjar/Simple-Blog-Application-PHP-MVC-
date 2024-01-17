@@ -1,6 +1,7 @@
 <?php
     require_once __DIR__ . "/../models/BlogModel.php";
     require_once __DIR__ . "/../core/Controller.php";
+    require_once __DIR__ . "/../core/File.php";
     require_once __DIR__ . "/../core/middlewares/AuthMiddleware.php";
     require_once __DIR__ . "/../core/exceptions/NotFoundException.php";
     require_once __DIR__ . "/../core/exceptions/ForbiddenException.php";
@@ -63,12 +64,23 @@
             try {
                 $blogModel = new BlogModel();
                 $blogModel->loadData($request->getBody());
-
+                
                 if ($request->isPost()) {
-                    // If the request method is POST
+                    $image = $request->getImage('thumbnail');
+
+                    if ($image && $image['error'] === UPLOAD_ERR_OK) {                        
+                        $blogModel->thumbnail = File::uploadImage($image);
+                        if(!$blogModel->thumbnail) {
+                            $blogModel->addError('thumbnail', 'Invalid image type!');
+                            return $this->render("dashboard-post-new", [
+                                'model' => $blogModel,
+                            ]);
+                        }
+                    } else {
+                        $blogModel->thumbnail = null;
+                    }
 
                     if (!$blogModel->validate()) {
-                        // If the blog model fails validation, render the new post view with the model
                         return $this->render("dashboard-post-new", [
                             'model' => $blogModel,
                         ]);
@@ -76,7 +88,7 @@
 
                     $userId = Application::$app->user->id;
 
-                    $res = $blogModel->createBlogPost($userId, $blogModel->title, $blogModel->content);
+                    $res = $blogModel->createBlogPost($userId, $blogModel->title, $blogModel->content, $blogModel->thumbnail);
 
                     if (!$res) {
                         // If the blog post creation fails, throw an exception

@@ -11,6 +11,7 @@ CREATE TABLE `posts` (
   `author_id` int NOT NULL,
   `title` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `content` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `thumbnail_uri` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `created_at` datetime NOT NULL ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` datetime DEFAULT NULL,
   `deleted` tinyint(1) DEFAULT '0',

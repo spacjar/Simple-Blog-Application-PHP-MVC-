@@ -39,6 +39,20 @@
             return $data;
         }
 
+        public function getImage($key) {
+            if (isset($_FILES[$key])) {
+                $image = $_FILES[$key];
+                return [
+                    'name' => $image['name'],
+                    'type' => $image['type'],
+                    'tmp_name' => $image['tmp_name'],
+                    'error' => $image['error'],
+                    'size' => $image['size'],
+                ];
+            }
+            return null;
+        }
+
         public function setRouteParams($params)
         {
             $this->routeParams = $params;
