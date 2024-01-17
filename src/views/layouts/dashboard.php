@@ -20,5 +20,6 @@
             {{content}}
         </div>
         <?php require_once __DIR__ . "/../components/_footer.php"; ?>
+        <!-- <script src="../static/js/pages/dashboard/post-form-validation.js" type="module"></script> -->
     </body>
 </html>
