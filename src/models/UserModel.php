@@ -61,7 +61,7 @@
          * @return string The display name of the user.
          */
         public function getDisplayName(): string {
-            return $this->username;
+            return htmlspecialchars($this->username, ENT_QUOTES, 'UTF-8');
         }
     }
 ?>
