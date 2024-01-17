@@ -19,26 +19,26 @@
     $app = new Application(dirname(__DIR__) . DIRECTORY_SEPARATOR . 'src', $config);
     
     // General routes
-    $app->router->get('/', [BlogController::class, "handleList"]);
-    $app->router->get('/post/{id}', [BlogController::class, "handleDetailList"]);
+    $app->router->get(BASE_URL . '/', [BlogController::class, "handleList"]);
+    $app->router->get(BASE_URL . '/post/{id}', [BlogController::class, "handleDetailList"]);
 
     // Dashboard posts routes
-    $app->router->get('/dashboard/posts', [DashboardController::class, "dashboardPosts"]);
-    $app->router->get('/dashboard/posts/new', [DashboardController::class, "dashboardPostNew"]);
-    $app->router->post('/dashboard/posts/new', [DashboardController::class, "dashboardPostNew"]);
-    $app->router->get('/dashboard/posts/edit/{postId}', [DashboardController::class, "dashboardPostEdit"]);
-    $app->router->post('/dashboard/posts/edit/{postId}', [DashboardController::class, "dashboardPostEdit"]);
-    $app->router->post('/dashboard/posts/delete/{postId}', [DashboardController::class, "dashboardPostDelete"]);
+    $app->router->get(BASE_URL . '/dashboard/posts', [DashboardController::class, "dashboardPosts"]);
+    $app->router->get(BASE_URL . '/dashboard/posts/new', [DashboardController::class, "dashboardPostNew"]);
+    $app->router->post(BASE_URL . '/dashboard/posts/new', [DashboardController::class, "dashboardPostNew"]);
+    $app->router->get(BASE_URL . '/dashboard/posts/edit/{postId}', [DashboardController::class, "dashboardPostEdit"]);
+    $app->router->post(BASE_URL . '/dashboard/posts/edit/{postId}', [DashboardController::class, "dashboardPostEdit"]);
+    $app->router->post(BASE_URL . '/dashboard/posts/delete/{postId}', [DashboardController::class, "dashboardPostDelete"]);
 
     // Dashboard users routes
     // $app->router->get('/dashboard/users', "dashboard-users");
     
     // Auth routes
-    $app->router->get('/login', [AuthController::class, "handleLogin"]);
-    $app->router->post('/login', [AuthController::class, "handleLogin"]);
-    $app->router->get('/register', [AuthController::class, 'handleRegister']);
-    $app->router->post('/register', [AuthController::class, 'handleRegister']);
-    $app->router->post('/logout', [AuthController::class, 'handleLogout']);
+    $app->router->get(BASE_URL . '/login', [AuthController::class, "handleLogin"]);
+    $app->router->post(BASE_URL . '/login', [AuthController::class, "handleLogin"]);
+    $app->router->get(BASE_URL . '/register', [AuthController::class, 'handleRegister']);
+    $app->router->post(BASE_URL . '/register', [AuthController::class, 'handleRegister']);
+    $app->router->post(BASE_URL . '/logout', [AuthController::class, 'handleLogout']);
 
     // API routes
     $app->router->get('/api/register', [ApiController::class, "handleRegisterCheck"]);
