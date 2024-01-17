@@ -48,4 +48,12 @@
     --white-900: rgba(255, 255, 255, 0.9);
     --white-950: rgba(255, 255, 255, 0.95);
     --white: rgba(255, 255, 255, 1);
+
+    --error: #ff0000;
+    --error-bg: rgba(255, 0, 0, 0.1);
+    --error-bg-darker: rgba(255, 0, 0, 0.2);
+
+    --warning: #ff9800;
+    --warning-bg: rgba(255, 152, 0, 0.1);
+    --warning-bg-darker: rgba(255, 152, 0, 0.2);
 }

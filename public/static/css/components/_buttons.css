@@ -26,3 +26,23 @@
 .cta__secondary:hover {
     background-color: rgba(0, 0, 0, 0.1);
 }
+
+.cta--warning {
+    color: var(--warning);
+    background-color: var(--warning-bg);
+    border: 1px solid var(--warning);
+}
+
+.cta--warning:hover {
+    background-color: var(--warning-bg-darker);
+}
+
+.cta--delete {
+    color: var(--error);
+    background-color: var(--error-bg);
+    border: 1px solid var(--error);
+}
+
+.cta--delete:hover {
+    background-color: var(--error-bg-darker);
+}

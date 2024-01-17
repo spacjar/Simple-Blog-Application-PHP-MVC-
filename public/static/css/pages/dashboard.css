@@ -4,19 +4,14 @@
     padding: 40px 0;
 }
 
-.dashaboar__title {
+.dashboard__title {
     margin-bottom: 24px;
 }
 
 /* Pagination */
 .dashboard__pagination {
-    margin-top: 24px;
+    margin: 32px 0 24px;
 }
-
-/* Dashboard table */
-/* .dashboard__list {
-
-} */
 
 .dashboard__table {
     width: 100%;
