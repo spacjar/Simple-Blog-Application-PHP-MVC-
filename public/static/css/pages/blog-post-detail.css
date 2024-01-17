@@ -1,5 +1,6 @@
 .blog-detail {
     padding: 120px 0;
+    min-height: 100vh;
 }
 
 .blog-detail .container {

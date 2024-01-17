@@ -39,8 +39,8 @@ $totalPages = intval($totalPages) ?: 1;
                             <td data-label="Created at"><?php echo htmlspecialchars((new DateTime($post['created_at']))->format('F j, Y'), ENT_QUOTES, 'UTF-8'); ?></td>
                             <td data-label="Actions" class="table__actions">
                                 <?php if ($post['deleted'] === 0): ?>
-                                    <a href="/dashboard/posts/edit/<?php echo htmlspecialchars($post["id"], ENT_QUOTES, 'UTF-8'); ?>" class="cta cta__secondary cta--warning">Edit</a>
-                                    <form action="/dashboard/posts/delete/<?php echo htmlspecialchars($post["id"], ENT_QUOTES, 'UTF-8'); ?>" method="POST">
+                                    <a href="dashboard/posts/edit/<?php echo htmlspecialchars($post["id"], ENT_QUOTES, 'UTF-8'); ?>" class="cta cta__secondary cta--warning">Edit</a>
+                                    <form action="dashboard/posts/delete/<?php echo htmlspecialchars($post["id"], ENT_QUOTES, 'UTF-8'); ?>" method="POST">
                                         <button class="cta cta__secondary cta--delete">Delete</button>
                                     </form>
                                 <?php elseif (Application::isAdmin()): ?>

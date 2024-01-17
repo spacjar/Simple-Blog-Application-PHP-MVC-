@@ -4,7 +4,7 @@
         $avatarImageURI = !empty($avatarImage) ? htmlspecialchars($avatarImage, ENT_QUOTES, 'UTF-8') : './assets/images/placeholder.png';
         
         return '
-            <a class="blog-post-card" href="/post/'.htmlspecialchars($id, ENT_QUOTES, 'UTF-8').'">
+            <a class="blog-post-card" href="post/'.htmlspecialchars($id, ENT_QUOTES, 'UTF-8').'">
                 <!-- Post thumbnail image -->
                 <img src="'.$postImageURI.'" alt="Blog post image" class="blog-post-card__image">
                 <!-- Post details -->

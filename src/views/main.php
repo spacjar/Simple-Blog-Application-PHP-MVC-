@@ -12,7 +12,7 @@
         <?php $firstPost = $posts[0]; ?>
         <section class="blog-highlight">
             <div class="container">
-                <a class="blog-highlight-card" href="/post/<?php echo htmlspecialchars($firstPost["id"], ENT_QUOTES, 'UTF-8'); ?>">
+                <a class="blog-highlight-card" href="post/<?php echo htmlspecialchars($firstPost["id"], ENT_QUOTES, 'UTF-8'); ?>">
                     <!-- Post thumbnail image -->
                     <img src="<?php echo $firstPost["thumbnail_uri"] ? htmlspecialchars($firstPost["thumbnail_uri"], ENT_QUOTES, 'UTF-8') : './assets/images/placeholder.png' ?>" alt="Blog post image" class="blog-highlight-card__image">
                     <div class="blog-highlight-card__content">

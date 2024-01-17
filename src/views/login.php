@@ -4,7 +4,7 @@
             <h1 class="heading-2">Login</h1>
             <p class="text-medium">Lorem ipsum dolor sit amet adipiscing elit.</p>
         </div>
-        <form id="login-form" class="auth-form" action="" method="POST">
+        <form id="login-form" class="auth-form" method="POST">
             <div class="auth-form__group <?php echo $model->hasError('email') ? 'is-invalid' : '' ?>">
                 <label for="email-input" class="text-regular">Email (required)</label>
                 <input type="email" id="email-input" name="email" autocomplete="email" class="input" placeholder="Email" value="<?php echo htmlspecialchars($model->email, ENT_QUOTES, 'UTF-8');?>">

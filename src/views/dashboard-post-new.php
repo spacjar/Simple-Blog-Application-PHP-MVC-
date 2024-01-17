@@ -1,6 +1,6 @@
 <div class="container">
     <h1 class="dashboard__title heading-3">New post</h1>
-    <form action="#" method="post" id="post__form" class="post__form" enctype="multipart/form-data">
+    <form method="post" id="post__form" class="post__form" enctype="multipart/form-data">
         <div class="form__group">
             <label for="title">Title (required)</label>
             <input type="text" name="title" id="title-input" class="form__input text-large <?php echo $model->hasError('title') ? 'is-invalid' : '' ?>" value="<?php echo htmlspecialchars($model->title, ENT_QUOTES, 'UTF-8'); ?>">
@@ -22,4 +22,4 @@
     </form>
 </div>
 
-<script src="/static/js/pages/dashboard/post-form-validation.js" type="module"></script>
+<script src="static/js/pages/dashboard/post-form-validation.js" type="module"></script>
