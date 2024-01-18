@@ -1,0 +1,48 @@
+.cta {
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%;
+    padding: 8px 20px;
+    cursor: pointer;
+}
+
+.cta__primary {
+    color: #fff;
+    background-color: #000;
+    border: 1px solid #000;
+}
+
+.cta__primary:hover {
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+.cta__secondary {
+    color: #000;
+    background-color: #fff;
+    border: 1px solid #000;
+}
+
+.cta__secondary:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.cta--warning {
+    color: var(--warning);
+    background-color: var(--warning-bg);
+    border: 1px solid var(--warning);
+}
+
+.cta--warning:hover {
+    background-color: var(--warning-bg-darker);
+}
+
+.cta--delete {
+    color: var(--error);
+    background-color: var(--error-bg);
+    border: 1px solid var(--error);
+}
+
+.cta--delete:hover {
+    background-color: var(--error-bg-darker);
+}

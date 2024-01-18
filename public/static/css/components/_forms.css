@@ -1,0 +1,36 @@
+.input {
+    padding: 12px;
+    color: var(--black-800);
+    border: 1px solid var(--black);
+    background: var(--white);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%;
+}
+
+.input:focus {
+    outline: none;
+    border: 1px solid var(--black-800);
+}
+
+.input::placeholder {
+    color: var(--black-500);
+}
+
+input[type="file"] {
+    width: 100%;
+    padding: 16px;
+    border: 1px dashed black;
+}
+
+form .is-invalid {
+    color: red;
+    border: 1px solid red;
+    background-color: rgba(255, 0, 0, 0.1);
+}
+
+form .error-message {
+    color: red;
+}
+
